@@ -20,9 +20,10 @@ app.use(express.json({ extended: false }));
 // GET route to confirm API
 app.get('/', (req, res) => res.send('PlanIt Wise API is running!'));
 
-// 4. Future API routes TBA here.
-// app.use('/api/users', require('./routes/api/users'));
-// app.use('/api/goals', require('./routes/api/goals'));
+// 4. Define API routes
+// Connect our route files (uncommented)
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 // 5. Start Server
 // Get port from environment variables or use 5000 as default
