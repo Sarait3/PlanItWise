@@ -6,6 +6,14 @@ require('dotenv').config(); // Loads .env file contents into process.env
 
 const app = express();
 
+// Added by Monofy for routes to goals, savingplans and milestones
+const goalsRoute = require("./routes/goals");
+const savingPlansRoute = require("./routes/savingplans");
+const milestoneRoute = require("./routes/milestones");
+
+
+
+
 // 1. Connect Database
 // Call function from /config/db.js
 connectDB();
@@ -24,6 +32,11 @@ app.get('/', (req, res) => res.send('PlanIt Wise API is running!'));
 // Connect our route files (uncommented)
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
+// Added  by Monofy for goal, savingplan and milestone
+app.use("/api/goals", goalsRoute);
+app.use("/api/saving-plans", savingPlansRoute);
+app.use("/api/saving-plans", milestoneRoute);
+
 
 // 5. Start Server
 // Get port from environment variables or use 5000 as default
