@@ -1,1 +1,55 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+
+
+    <div *ngIf="loading" class="loading">Loading your dashboard...</div>
+
+    <div *ngIf="!loading && !goal" class="empty-state">
+        <h2>Welcome back, {{ userName }}</h2>
+        <p>You don’t have a savings goal yet.</p>
+        <button class="btn" (click)="goToCreateGoal()">+ Create Your Goal</button>
+    </div>
+
+    <div *ngIf="!loading && goal" class="goal-card">
+
+        <h1 class="welcome-text">Welcome back, {{ userName }}</h1>
+
+        <div class="goal-info">
+
+            <div class="goal-section">
+                <p class="label">Target</p>
+                <p class="value">${{ goal.targetAmount | number }}</p>
+            </div>
+
+            <div class="goal-title">{{ goal.title }}</div>
+            <div class="goal-description">{{ goal.description }}</div>
+
+            <div class="progress-section">
+                <p class="label">Progress: ${{ goal.currentAmount }} saved</p>
+
+                <div class="progress-bar">
+                    <div class="fill" [style.width.%]="progress"></div>
+                </div>
+            </div>
+
+            <div class="details-grid">
+
+                <div class="detail-box">
+                    <p class="detail-label">Deadline</p>
+                    <p class="detail-value">{{ goal.deadline | date }}</p>
+                </div>
+
+                <div class="detail-box">
+                    <p class="detail-label">Monthly Save</p>
+                    <p class="detail-value green">${{ monthlyRequired }}</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="delete-btn" (click)="deleteGoal()">
+            ❌ Delete Goal
+        </button>
+
+    </div>
+</div>

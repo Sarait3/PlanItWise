@@ -7,9 +7,9 @@ require('dotenv').config(); // Loads .env file contents into process.env
 const app = express();
 
 // Added by Monofy for routes to goals, savingplans and milestones
-const goalsRoute = require("./routes/goals");
-const savingPlansRoute = require("./routes/savingplans");
-const milestoneRoute = require("./routes/milestones");
+const goalsRoute = require("./routes/api/goals");
+const savingPlansRoute = require("./routes/api/savingplans");
+const milestoneRoute = require("./routes/api/milestones");
 
 
 

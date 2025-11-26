@@ -1,0 +1,23 @@
+<div class="wizard-container">
+
+  <h1 class="wizard-title">Set your targets</h1>
+
+  <p class="wizard-subtitle">Define what you want to achieve and by when.</p>
+
+  <div class="field">
+    <label>Target Amount ($)</label>
+    <input type="number" [(ngModel)]="targetAmount" class="input-number" />
+  </div>
+
+  <div class="field">
+    <label>Target Date</label>
+    <input type="date" [(ngModel)]="targetDate" class="input-date" />
+  </div>
+
+  <div class="buttons-row">
+    <button class="btn-back" (click)="back()">← Back</button>
+    <button class="btn-next" (click)="next()" [disabled]="!targetAmount || !targetDate">
+      Next →
+    </button>
+    </div>
+

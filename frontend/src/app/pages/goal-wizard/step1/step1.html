@@ -1,0 +1,61 @@
+<div class="wizard-container">
+
+  <h1 class="wizard-title">Let's start with your goal</h1>
+
+  <p class="wizard-subtitle">Select the type of goal you're creating:</p>
+
+  <div class="category-row">
+    <button 
+      class="category-btn" 
+      [class.selected]="category==='Home'"
+      (click)="selectCategory('Home')"
+    >Home</button>
+
+    <button 
+      class="category-btn" 
+      [class.selected]="category==='Vacation'"
+      (click)="selectCategory('Vacation')"
+    >Vacation</button>
+
+    <button 
+      class="category-btn" 
+      [class.selected]="category==='Savings'"
+      (click)="selectCategory('Savings')"
+    >Savings</button>
+
+    <button 
+      class="category-btn" 
+      [class.selected]="category==='Debt'"
+      (click)="selectCategory('Debt')"
+    >Debt</button>
+
+    <button 
+      class="category-btn" 
+      [class.selected]="category==='Other'"
+      (click)="selectCategory('Other')"
+    >Other</button>
+  </div>
+
+  <div class="field">
+    <label>Goal Name</label>
+    <input 
+      type="text" 
+      [(ngModel)]="goalName"
+      placeholder="Ex: Down payment for house"
+      class="input-text"
+    />
+  </div>
+
+  <div class="buttons-row">
+    <button class="btn-cancel" (click)="cancel()">Cancel</button>
+
+    <button 
+      class="btn-next" 
+      (click)="next()" 
+      [disabled]="!category || !goalName"
+    >
+      Next →
+    </button>
+  </div>
+
+</div>

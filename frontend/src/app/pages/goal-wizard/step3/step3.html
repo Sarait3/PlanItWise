@@ -1,0 +1,24 @@
+<div class="wizard-container">
+
+  <h1 class="wizard-title">Understanding your finances</h1>
+
+  <p class="wizard-subtitle">
+    We'll use this to calculate if your goal is realistic.
+  </p>
+
+  <div class="field">
+    <label>Monthly Income ($)</label>
+    <input type="number" [(ngModel)]="monthlyIncome" class="input-number" />
+  </div>
+
+  <div class="field">
+    <label>Monthly Expenses ($)</label>
+    <input type="number" [(ngModel)]="monthlyExpenses" class="input-number" />
+  </div>
+
+  <div class="buttons-row">
+    <button class="btn-back" (click)="back()">← Back</button>
+    <button class="btn-next" (click)="next()" [disabled]="!monthlyIncome || !monthlyExpenses">
+      Next →
+    </button>
+  </div>

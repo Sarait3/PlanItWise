@@ -1,0 +1,51 @@
+<div class="wizard-container">
+
+  <h1>Your personalized plan</h1>
+
+  <p style="margin-bottom:20px;">
+    Based on your inputs, here’s what you’ll need to stay on track.
+  </p>
+
+  <div class="plan-summary">
+    <p><strong>Goal:</strong> {{ data.goalName }}</p>
+    <p><strong>Target Amount:</strong> ${{ data.targetAmount }}</p>
+    <p><strong>Deadline:</strong> {{ data.targetDate | date:'MMM d, y' }}</p>
+    <p><strong>Required Monthly Savings:</strong> ${{ monthlyRequired }}</p>
+  </div>
+
+  <div *ngIf="goalIsAchievable" class="good-box">
+    <h3>Great news! This goal is achievable.</h3>
+    <p>
+      You can comfortably save <strong>${{ monthlyRequired }}</strong> per month
+      to reach your goal on time.
+    </p>
+  </div>
+
+  <div *ngIf="!goalIsAchievable" class="bad-box">
+    <h3>⚠️ This goal isn’t achievable yet.</h3>
+    <p>
+      You currently have <strong>${{ monthlyAvailable }}</strong> available each month,
+      but you would need <strong>${{ monthlyRequired }}</strong> to reach your target
+      by the selected date.
+    </p>
+    <p style="margin-top:10px;">
+      To make this goal achievable, try extending your deadline or adjusting 
+      your income/expenses.
+    </p>
+  </div>
+
+  <div class="buttons-row">
+    <button class="btn-back" (click)="back()">← Back</button>
+
+    <button
+      class="btn-next"
+      *ngIf="goalIsAchievable"
+      (click)="createPlan()">
+      Create Plan
+    </button>
+  </div>
+</div>
+
+
+
+

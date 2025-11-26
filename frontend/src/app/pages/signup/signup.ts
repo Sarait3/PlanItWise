@@ -42,12 +42,11 @@ export class Signup {
     };
 
     this.auth.signup(data).subscribe({
-      next: (token: string) => {
-        this.auth.saveToken(token);
+      next: (res) => {
         this.loading = false;
         this.router.navigate(['/dashboard']);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.loading = false;
         this.error = err?.error?.errors?.[0]?.msg || 'Signup failed';
       },
