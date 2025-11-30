@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ContributionService {
+
+  private baseUrl = 'http://localhost:4000/api/contributions';
+
+  constructor(private http: HttpClient) {}
+
+  // Create a new contribution
+  createContribution(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, data);
+  }
+
+  // Get all contributions for a specific goal
+  getContributionsByGoal(goalId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/goal/${goalId}`);
+  }
+
+  // Delete a contribution
+  deleteContribution(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+}

@@ -8,10 +8,9 @@ const app = express();
 
 // Added by Monofy for routes to goals, savingplans and milestones
 const goalsRoute = require("./routes/api/goals");
-const savingPlansRoute = require("./routes/api/savingplans");
+const savingPlansRoute = require("./routes/api/savingPlans");
 const milestoneRoute = require("./routes/api/milestones");
-
-
+const contributionRoute = require("./routes/api/contributions"); 
 
 
 // 1. Connect Database
@@ -35,7 +34,10 @@ app.use('/api/auth', require('./routes/api/auth'));
 // Added  by Monofy for goal, savingplan and milestone
 app.use("/api/goals", goalsRoute);
 app.use("/api/saving-plans", savingPlansRoute);
-app.use("/api/saving-plans", milestoneRoute);
+
+
+app.use("/api/milestones", milestoneRoute);
+app.use("/api/contributions", contributionRoute);
 
 
 // 5. Start Server

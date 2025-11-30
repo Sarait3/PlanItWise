@@ -1,0 +1,43 @@
+<div class="left-summary">
+
+  <!-- Goal header -->
+  <div class="goal-header">
+    <span class="goal-title">{{ goal.title }}</span>
+    <div class="goal-target-date">🎯 Target: {{ goal.deadline | date }}</div>
+  </div>
+
+  <!-- Saved vs Target -->
+  <div class="summary-box">
+    <div class="summary-item">
+      <label>Total Saved</label>
+      <div class="value green">${{ goal.currentAmount | number }}</div>
+    </div>
+
+    <div class="summary-item">
+      <label>Target Goal</label>
+      <div class="value">${{ goal.targetAmount | number }}</div>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-container">
+    <div class="progress-label">{{ progress | number:'1.0-0' }}%</div>
+    <div class="progress-bar">
+      <div class="fill" [style.width.%]="progress"></div>
+    </div>
+  </div>
+
+  <!-- Achieved milestones -->
+  <div *ngIf="achievedMilestones.length" class="badge-row">
+    <span class="badge">🏅 {{ achievedMilestones.length }} milestones reached!</span>
+  </div>
+
+  <!-- Monthly required -->
+  <div class="monthly-box">
+    <label>Monthly Required</label>
+    <div class="monthly-value">${{ monthlyRequired }}</div>
+  </div>
+
+  <!-- Delete button -->
+  <button class="delete-btn" (click)="onDelete()"> Delete Goal</button>
+</div>

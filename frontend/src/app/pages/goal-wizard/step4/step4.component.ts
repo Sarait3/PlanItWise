@@ -56,7 +56,7 @@ export class Step4Component implements OnInit {
     const userId = localStorage.getItem('userId');
 
     if (!userId) {
-        console.error("❌ No userId found — user not logged in!");
+        console.error("No userId found — user not logged in!");
         return;
     }
 
@@ -74,11 +74,11 @@ export class Step4Component implements OnInit {
 
     this.goalService.createGoal(payload).subscribe({
         next: () => {
-            console.log("✅ Goal created!");
+            console.log("Goal created!");
             this.router.navigate(['/dashboard']);
         },
         error: (err) => {
-            console.error("❌ Backend error:", err.error || err);
+            console.error("Backend error:", err.error || err);
         }
     });
 }

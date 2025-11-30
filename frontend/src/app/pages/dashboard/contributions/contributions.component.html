@@ -1,0 +1,24 @@
+<div class="contribution-panel">
+
+  <!-- Title -->
+  <h3>Add Contribution</h3>
+
+  <!-- Amount input -->
+  <label>Amount</label>
+  <input type="number" [(ngModel)]="amount" placeholder="$0.00">
+
+  <!-- Date input -->
+  <label>Date</label>
+  <input type="date" [(ngModel)]="date">
+
+  <!-- Note input -->
+  <label>Note (optional)</label>
+  <input type="text" [(ngModel)]="note">
+
+  <!-- Add contribution -->
+  <button class="add-contrib-btn" (click)="onAdd()">Add Contribution</button>
+
+  <!-- Open history -->
+  <button class="history-btn" (click)="onHistory()">View Contribution History</button>
+
+</div>

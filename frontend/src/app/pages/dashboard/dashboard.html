@@ -1,55 +1,84 @@
 <div class="dashboard-container">
 
+  <!-- Congratulations Popup -->
+  <div *ngIf="milestonePopup" class="milestone-popup">
+    <div class="milestone-popup-inner">
+      <span class="emoji">🎉🥳</span>
+      <p>{{ milestonePopup }}</p>
+    </div>
+  </div>
 
-    <div *ngIf="loading" class="loading">Loading your dashboard...</div>
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">Loading your dashboard...</div>
 
-    <div *ngIf="!loading && !goal" class="empty-state">
-        <h2>Welcome back, {{ userName }}</h2>
-        <p>You don’t have a savings goal yet.</p>
-        <button class="btn" (click)="goToCreateGoal()">+ Create Your Goal</button>
+  <!-- Empty state -->
+  <div *ngIf="!loading && !goal" class="empty-state">
+    <h2>Welcome back, {{ userName }}</h2>
+    <p>You don’t have a savings goal yet.</p>
+    <button class="btn" (click)="goToCreateGoal()">+ Create Your Goal</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div *ngIf="!loading && goal">
+
+    <!-- CHART -->
+    <app-dashboard-chart
+      [goal]="goal"
+      [contributions]="goal.contributions">
+    </app-dashboard-chart>
+
+    <div class="bottom-grid">
+
+      <!-- GOAL SUMMARY -->
+      <app-dashboard-goal
+        [goal]="goal"
+        [progress]="progress"
+        [monthlyRequired]="monthlyRequired"
+        [achievedMilestones]="achievedMilestones"
+        (deleteGoalClicked)="onDeleteGoal()">
+      </app-dashboard-goal>
+
+      <!-- CONTRIBUTIONS -->
+      <app-dashboard-contributions
+        (addContributionClicked)="onAddContribution($event)"
+        (historyClicked)="toggleHistoryPanel()">
+      </app-dashboard-contributions>
+
+      <!-- MILESTONES -->
+      <app-dashboard-milestones
+        [goal]="goal"
+        [milestones]="milestones"
+        (addMilestoneClicked)="onAddMilestone($event)"
+        (deleteMilestoneClicked)="onDeleteMilestone($event)">
+      </app-dashboard-milestones>
+
     </div>
 
-    <div *ngIf="!loading && goal" class="goal-card">
+    <!-- CONTRIBUTION HISTORY MODAL -->
+    <div *ngIf="historyOpen" class="history-overlay" (click)="toggleHistoryPanel()">
+      <div class="history-modal" (click)="$event.stopPropagation()">
 
-        <h1 class="welcome-text">Welcome back, {{ userName }}</h1>
-
-        <div class="goal-info">
-
-            <div class="goal-section">
-                <p class="label">Target</p>
-                <p class="value">${{ goal.targetAmount | number }}</p>
-            </div>
-
-            <div class="goal-title">{{ goal.title }}</div>
-            <div class="goal-description">{{ goal.description }}</div>
-
-            <div class="progress-section">
-                <p class="label">Progress: ${{ goal.currentAmount }} saved</p>
-
-                <div class="progress-bar">
-                    <div class="fill" [style.width.%]="progress"></div>
-                </div>
-            </div>
-
-            <div class="details-grid">
-
-                <div class="detail-box">
-                    <p class="detail-label">Deadline</p>
-                    <p class="detail-value">{{ goal.deadline | date }}</p>
-                </div>
-
-                <div class="detail-box">
-                    <p class="detail-label">Monthly Save</p>
-                    <p class="detail-value green">${{ monthlyRequired }}</p>
-                </div>
-
-            </div>
-
+        <div class="history-header">
+          <h3>📄 Contribution History</h3>
+          <button class="close-btn" (click)="toggleHistoryPanel()">✕</button>
         </div>
 
-        <button class="delete-btn" (click)="deleteGoal()">
-            ❌ Delete Goal
-        </button>
+        <div *ngIf="!goal.contributions?.length">
+          <p>No contributions yet.</p>
+        </div>
 
+        <div *ngFor="let c of goal.contributions" class="history-item">
+          <div class="info">
+            <strong>{{ c.amount | currency }}</strong>
+            <span>{{ c.date | date }}</span>
+          </div>
+          <button class="delete-contrib-btn" (click)="deleteContribution(c._id)">
+            🗑 Delete
+          </button>
+        </div>
+
+      </div>
     </div>
+
+  </div> 
 </div>

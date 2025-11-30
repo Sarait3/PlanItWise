@@ -6,16 +6,29 @@ const MilestoneSchema = new mongoose.Schema({
     ref: 'goal',
     required: true
   },
-  description: {
+
+  title: {
     type: String,
     required: true
   },
-  targetDate: {
-    type: Date
+
+  percentage: {
+    type: Number,
+    required: true
   },
+
+  auto: {
+    type: Boolean,
+    default: false
+  },
+
   achieved: {
     type: Boolean,
     default: false
+  },
+
+  targetDate: {
+    type: Date
   }
 });
 

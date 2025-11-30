@@ -186,7 +186,7 @@ a:hover {
   align-items: stretch;
   justify-content: flex-start;
   padding: 0;
-  margin:0;
+  margin: 0;
 }
 
 .home-header {
@@ -349,21 +349,7 @@ a:hover {
   margin-top: 20px;
 }
 
-.btn-cancel {
-  background: #ffffff;
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 1px solid #cbd5e1;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #334155;
-}
-.btn-cancel:hover {
-  background: #f1f5f9;
-  border-color: #94a3b8;
-}
-
+.btn-cancel,
 .btn-back {
   background: #ffffff;
   padding: 10px 18px;
@@ -373,6 +359,8 @@ a:hover {
   font-size: 1rem;
   color: #334155;
 }
+
+.btn-cancel:hover,
 .btn-back:hover {
   background: #f1f5f9;
   border-color: #94a3b8;
@@ -388,10 +376,12 @@ a:hover {
   font-size: 1rem;
   transition: background 0.2s;
 }
+
 .btn-next:disabled {
   background: #9cc3e7;
   cursor: not-allowed;
 }
+
 .btn-next:hover:not(:disabled) {
   background: #004a93;
 }
@@ -407,6 +397,7 @@ a:hover {
   display: block;
   margin: 20px auto 0;
 }
+
 .btn-create:hover {
   background: #004a93;
 }
@@ -436,4 +427,529 @@ a:hover {
   background: #005eb8;
   color: white;
   border-color: #005eb8;
+}
+
+/* 
+   DASHBOARD
+                */
+.dashboard-container {
+  --card-height: 420px;
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  background: white;
+  padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  text-align: center;
+  max-width: 550px;
+  margin: 80px auto;
+}
+
+.empty-state h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.empty-state p {
+  font-size: 17px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.empty-state .btn {
+  background: #005eb8;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* CHART */
+.top-chart-section {
+  width: 100%;
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  margin-bottom: 35px;
+}
+
+.chart-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+canvas {
+  width: 100% !important;
+  height: 350px !important;
+}
+
+.dashboard-container .top-chart-section {
+  box-sizing: border-box;
+}
+
+/* 3-COLUMN GRID */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+/* CARD PANELS */
+.left-summary,
+.contribution-panel,
+.milestones-panel {
+  background: white;
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  height: var(--card-height);
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.contribution-panel,
+.milestones-panel {
+  overflow-y: auto;
+  width: 100%;
+  overflow-x: hidden; 
+}
+
+.contribution-panel input,
+.contribution-panel select,
+.contribution-panel textarea {
+  max-width: 380px;
+  margin: 0 auto;
+  display: block;
+}
+
+.contribution-panel input,
+.contribution-panel select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin-top: 4px;
+}
+
+.left-summary {
+  overflow: hidden; 
+}
+
+/* GOAL SUMMARY */
+.goal-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.goal-target-date {
+  margin-top: 5px;
+  color: #777;
+}
+
+.summary-box {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #005eb8;
+}
+
+.progress-container {
+  margin: 15px 0;
+}
+
+.progress-label {
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e8e9ee;
+  border-radius: 12px;
+}
+
+.fill {
+  height: 8px;
+  background: #005eb8;
+  border-radius: 12px;
+}
+
+.monthly-box {
+  margin-top: 15px;
+}
+
+.monthly-value {
+  font-size: 22px;
+  font-weight: bold;
+  color: #444;
+}
+
+.badge-row {
+  margin-top: 10px;
+}
+
+.badge {
+  display: inline-block;
+  background: #e0ecff;
+  color: #1d4ed8;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Delete goal */
+.delete-btn {
+  margin-top: auto;
+  background: #e11d48;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #be123c;
+}
+
+/* CONTRIBUTION PANEL */
+.contribution-panel h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.add-contrib-btn {
+  background: #005eb8;
+  padding: 13px;
+  margin-top: 18px;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.add-contrib-btn:hover {
+  background: #004a94;
+}
+
+.history-btn {
+  margin-top: 12px;
+  background: #5b78ff;
+  padding: 12px;
+  border-radius: 10px;
+  width: 100%;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.history-btn:hover {
+  background: #4b62d4;
+}
+
+/* MILESTONES */
+.milestones-panel .panel-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.add-box {
+  background: #f4f8ff;
+  padding: 5px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.add-box input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 8px;
+}
+
+.add-box button {
+  margin-top: 10px;
+  width: 100%;
+  background: #005eb8;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-box button:hover {
+  background: #004a94;
+}
+
+.milestone-list {
+  margin-top: 10px;
+  flex: 1;
+  padding-right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.milestone-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  transition: 0.25s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+}
+
+.milestone-card.achieved {
+  background: #eef6ff;
+  border-color: #005eb8;
+  box-shadow: 0 4px 10px rgba(0,94,184,0.08);
+}
+
+.milestone-left {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.milestone-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.milestone-icon.done {
+  background: #005eb8;
+}
+
+.milestone-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.milestone-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.milestone-percent {
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 3px 8px;
+  font-size: 13px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.milestone-amount {
+  display: block;
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.milestone-tag {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  padding: 3px 8px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.milestone-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.milestone-badge {
+  font-size: 26px;
+  opacity: 0.35;
+  transition: 0.25s;
+}
+
+.milestone-badge.active {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.delete-milestone-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  color: #d9534f;
+  transition: 0.2s ease;
+}
+
+.delete-milestone-btn:hover {
+  color: #b52b27;
+  transform: scale(1.1);
+}
+
+.milestones-panel .add-box input {
+  width: 90%;
+  max-width: 420px;
+  margin: 8px auto;
+  display: block;
+}
+
+.milestones-panel .add-box button {
+  width: 90%;
+  max-width: 420px;
+  margin: 12px auto 0;
+  display: block;
+}
+
+/* HISTORY MODAL */
+.history-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.history-modal {
+  background: white;
+  width: 65%;
+  max-width: 720px;
+  max-height: 80%;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  overflow-y: auto;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.delete-contrib-btn {
+  background: #dc3545;
+  border: none;
+  padding: 6px 12px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-contrib-btn:hover {
+  background: #b02a37;
+}
+
+/* POPUP */
+.milestone-popup {
+  padding: 22px 0;
+  background: linear-gradient(90deg, #005eb8, #4b62d4);
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  animation: slideDown 0.45s ease-out;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  position: fixed;
+  top: 70px;   
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999 !important;
+  width: 90%;
+  max-width: 800px;
+}
+
+.milestone-popup-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.milestone-popup .emoji {
+  font-size: 2.4rem;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-25px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .left-summary,
+  .contribution-panel,
+  .milestones-panel {
+    height: auto;
+    overflow-y: visible;
+  }
 }

@@ -5,9 +5,11 @@ const auth = require('../../middleware/auth');
 const Goal = require('../../models/Goal');
 const SavingsPlan = require('../../models/SavingsPlan');
 const Milestone = require('../../models/Milestone');
+const Contribution = require('../../models/Contribution');
+
 
 // --------------------------------------
-// 0. GET GOAL FOR LOGGED-IN USER
+// 0. GET GOAL + CONTRIBUTIONS for LOGGED-IN USER
 // --------------------------------------
 router.get('/my-goal', auth, async (req, res) => {
   try {
@@ -17,11 +19,23 @@ router.get('/my-goal', auth, async (req, res) => {
       return res.status(404).json({ msg: "No goal found" });
     }
 
-    res.json(goal);
+    // FETCH CONTRIBUTIONS linked to this goal
+    const contributions = await Contribution.find({
+      goal: goal._id
+    }).sort({ date: 1 });
+
+    // RETURN both goal and contributions together
+    return res.json({
+      ...goal.toObject(),
+      contributions
+    });
+
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 // --------------------------------------
 // 1. CREATE GOAL (Protected) + Auto Create Savings Plan
