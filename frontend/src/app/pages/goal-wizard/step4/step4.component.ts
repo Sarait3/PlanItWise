@@ -14,7 +14,6 @@ import { AuthService } from '../../../services/auth.service';
 export class Step4Component implements OnInit {
     data: any = {};
     monthlyRequired = 0;
-    weeklyRequired = 0;
     monthlyAvailable = 0;
     goalIsAchievable = false;
 
@@ -35,16 +34,35 @@ export class Step4Component implements OnInit {
         const targetDate = new Date(this.data.targetDate);
         const today = new Date();
 
-        const monthsRemaining =
+        let monthsRemaining =
             (targetDate.getFullYear() - today.getFullYear()) * 12 +
             (targetDate.getMonth() - today.getMonth());
 
-        const safeMonths = Math.max(monthsRemaining, 1);
+        // Adjust for day of the month 
+        if (targetDate.getDate() < today.getDate()) {
+            monthsRemaining -= 1;
+        }
 
-        this.monthlyRequired = Math.ceil(targetAmount / safeMonths);
+        monthsRemaining = Math.max(monthsRemaining, 1);
+
+        this.monthlyRequired = Math.ceil(targetAmount / monthsRemaining);
+
         this.monthlyAvailable = monthlyIncome - monthlyExpenses;
 
         this.goalIsAchievable = this.monthlyAvailable >= this.monthlyRequired;
+    }
+
+    private getMonthDifference(start: Date, end: Date): number {
+        let months =
+            (end.getFullYear() - start.getFullYear()) * 12 +
+            (end.getMonth() - start.getMonth());
+
+        // If the end day is earlier in the month than the start day, subtract 1
+        if (end.getDate() < start.getDate()) {
+            months -= 1;
+        }
+
+        return months;
     }
 
     back() {
@@ -52,37 +70,33 @@ export class Step4Component implements OnInit {
     }
 
     createPlan() {
+        const userId = localStorage.getItem('userId');
 
-    const userId = localStorage.getItem('userId');
-
-    if (!userId) {
-        console.error("No userId found — user not logged in!");
-        return;
-    }
-
-    const payload = {
-        user: userId,
-        title: this.data.goalName,
-        description: this.data.category || "",
-        targetAmount: this.data.targetAmount,
-        deadline: new Date(this.data.targetDate), 
-        currentAmount: 0,
-        status: "active"
-    };
-
-    console.log("📤 Sending payload:", payload);
-
-    this.goalService.createGoal(payload).subscribe({
-        next: () => {
-            console.log("Goal created!");
-            this.router.navigate(['/dashboard']);
-        },
-        error: (err) => {
-            console.error("Backend error:", err.error || err);
+        if (!userId) {
+            console.error("No userId found — user not logged in!");
+            return;
         }
-    });
-}
 
+        const payload = {
+            user: userId,
+            title: this.data.goalName,
+            description: this.data.category || "",
+            targetAmount: this.data.targetAmount,
+            deadline: new Date(this.data.targetDate),
+            currentAmount: 0,
+            status: "active"
+        };
 
+        console.log("📤 Sending payload:", payload);
 
+        this.goalService.createGoal(payload).subscribe({
+            next: () => {
+                console.log("Goal created!");
+                this.router.navigate(['/dashboard']);
+            },
+            error: (err) => {
+                console.error("Backend error:", err.error || err);
+            }
+        });
+    }
 }

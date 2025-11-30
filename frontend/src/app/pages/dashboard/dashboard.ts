@@ -44,7 +44,7 @@ export class Dashboard implements OnInit {
     private goalService: GoalService,
     private milestoneService: MilestonesService,
     private contributionService: ContributionService
-  ) {}
+  ) { }
 
   // Load goal on component initialization
   ngOnInit() {
@@ -85,15 +85,21 @@ export class Dashboard implements OnInit {
     const today = new Date();
     const deadline = new Date(this.goal.deadline);
 
-    const months =
+    let months =
       (deadline.getFullYear() - today.getFullYear()) * 12 +
       (deadline.getMonth() - today.getMonth());
 
-    const safeMonths = Math.max(months, 1);
+    if (deadline.getDate() < today.getDate()) {
+      months -= 1;
+    }
+
+    months = Math.max(months, 1);
+
     const remaining = this.goal.targetAmount - this.goal.currentAmount;
 
-    return Math.ceil(remaining / safeMonths);
+    return Math.ceil(remaining / months);
   }
+
 
   // Navigate to goal creation wizard
   goToCreateGoal() {
