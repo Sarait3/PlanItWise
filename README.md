@@ -66,21 +66,47 @@ This project was developed using Angular 20 (standalone components), Node.js 22,
 ```
 src/app/
   components/
-    header/
     footer/
+    header/
+  interceptors/
   pages/
-    auth/
-      login/
-      signup/
     dashboard/
       chart/
-      goal/
       contributions/
+      goal/
       milestones/
+    goal-wizard/
+    home/
+    login/
+    signup/
 ```
-
 The application uses fully standalone components, following Angular’s modern module-less architecture.
 
+## Project Structure (Backend)
+
+```
+backend/
+  config/
+    auth.js
+  middleware/
+    auth.js
+  models/
+    Contribution.js
+    Goal.js
+    Milestone.js
+    SavingsPlan.js
+    User.js
+  routes/api/
+    auth.js
+    contributions.js
+    goals.js
+    milestones.js
+    savingPlans.js
+    users.js
+```
+
+The backend is built using Node.js, Express.js, JWT authentication, and MongoDB (Mongoose).  
+Routes are organized by feature, and data models follow a clean schema-based structure.
 
 ## Setup & Installation
 
