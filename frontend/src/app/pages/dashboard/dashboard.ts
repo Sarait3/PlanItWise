@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { GoalService } from '../../services/goal.service';
 import { MilestonesService } from '../../services/milestones.service';
 import { ContributionService } from '../../services/contribution.service';
+import { SavingsPlanService } from '../../services/savings-plan.service';
 
-// Dashboard child components
 import { DashboardChartComponent } from './chart/chart.component';
 import { DashboardGoalComponent } from './goal/goal.component';
 import { DashboardContributionsComponent } from './contributions/contributions.component';
@@ -31,7 +31,7 @@ export class Dashboard implements OnInit {
   loading = true;
   userName = localStorage.getItem('userName') || 'User';
 
-  // Milestones state
+  // Milestone state
   milestones: any[] = [];
   achievedMilestones: any[] = [];
 
@@ -43,24 +43,27 @@ export class Dashboard implements OnInit {
     private router: Router,
     private goalService: GoalService,
     private milestoneService: MilestonesService,
-    private contributionService: ContributionService
-  ) { }
+    private contributionService: ContributionService,
+    private savings: SavingsPlanService
+  ) {}
 
-  // Load goal on component initialization
   ngOnInit() {
+    // Load the user's goal from backend
     this.goalService.getGoal().subscribe({
       next: (data: any) => {
         this.goal = data || null;
         this.loading = false;
 
         if (this.goal) {
+          // Ensure contributions array exists
           if (!this.goal.contributions) this.goal.contributions = [];
 
-          // Calculate current savings
-          this.goal.currentAmount = this.goal.contributions.reduce(
-            (sum: number, c: any) => sum + c.amount, 0
+          // Calculate total contribution amount
+          this.goal.currentAmount = this.savings.sumContributions(
+            this.goal.contributions
           );
 
+          // Load and evaluate milestones
           this.loadMilestones();
           setTimeout(() => this.checkMilestones(), 60);
         }
@@ -72,41 +75,31 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Goal progress percentage
+  // Compute progress percentage
   get progress(): number {
-    if (!this.goal || !this.goal.targetAmount) return 0;
-    return (this.goal.currentAmount / this.goal.targetAmount) * 100;
+    if (!this.goal) return 0;
+    return this.savings.getProgress(
+      this.goal.currentAmount,
+      this.goal.targetAmount
+    );
   }
 
-  // Monthly required contribution to reach deadline
+  // Compute monthly required amount
   get monthlyRequired(): number {
-    if (!this.goal?.deadline || !this.goal?.targetAmount) return 0;
-
-    const today = new Date();
-    const deadline = new Date(this.goal.deadline);
-
-    let months =
-      (deadline.getFullYear() - today.getFullYear()) * 12 +
-      (deadline.getMonth() - today.getMonth());
-
-    if (deadline.getDate() < today.getDate()) {
-      months -= 1;
-    }
-
-    months = Math.max(months, 1);
-
-    const remaining = this.goal.targetAmount - this.goal.currentAmount;
-
-    return Math.ceil(remaining / months);
+    if (!this.goal) return 0;
+    return this.savings.getMonthlyRequired(
+      this.goal.targetAmount,
+      this.goal.currentAmount,
+      new Date(this.goal.deadline)
+    );
   }
-
 
   // Navigate to goal creation wizard
   goToCreateGoal() {
     this.router.navigate(['/goal/step1']);
   }
 
-  // Delete current goal and reset dashboard
+  // Delete the active goal
   onDeleteGoal() {
     if (!this.goal?._id) return;
     if (!confirm('Delete this goal?')) return;
@@ -116,7 +109,7 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Load all milestones associated with the goal
+  // Load milestones from backend
   loadMilestones() {
     this.milestoneService.getMilestonesByGoal(this.goal._id)
       .subscribe(res => {
@@ -126,9 +119,9 @@ export class Dashboard implements OnInit {
       });
   }
 
-  // Create default automatic milestones if missing (25%, 50%, 75%)
+  // Ensure 25/50/75% milestones exist
   ensureDefaultMilestones() {
-    const defaults = [25, 50, 75];
+    const defaults = this.savings.getDefaultMilestones();
     const existing = this.milestones.map(m => m.percentage);
 
     defaults.forEach(percent => {
@@ -141,14 +134,13 @@ export class Dashboard implements OnInit {
           achieved: false
         };
 
-        this.milestoneService.createMilestone(payload).subscribe(() =>
-          this.loadMilestones()
-        );
+        this.milestoneService.createMilestone(payload)
+          .subscribe(() => this.loadMilestones());
       }
     });
   }
 
-  // Add a custom milestone
+  // Add custom milestone
   onAddMilestone(event: { name: string; percentage: number }) {
     if (!event.name || !event.percentage) return;
 
@@ -160,72 +152,59 @@ export class Dashboard implements OnInit {
       achieved: false
     };
 
-    this.milestoneService.createMilestone(payload).subscribe(() => {
-      this.loadMilestones();
-    });
+    this.milestoneService.createMilestone(payload)
+      .subscribe(() => this.loadMilestones());
   }
 
-  // Delete a milestone
+  // Delete milestone
   onDeleteMilestone(id: string) {
     if (!confirm("Are you sure you want to delete this milestone?")) return;
 
     this.milestoneService.deleteMilestone(id).subscribe({
       next: () => {
-        this.milestones = this.milestones.filter((m: any) => m._id !== id);
-        this.achievedMilestones = this.milestones.filter((m: any) => m.achieved);
+        this.milestones = this.milestones.filter(m => m._id !== id);
+        this.achievedMilestones = this.milestones.filter(m => m.achieved);
       },
       error: (err) => console.error("Error deleting milestone:", err)
     });
   }
 
-  // Reset milestone achieved flags
+  // Reset all milestone achievement flags
   resetMilestones() {
     this.milestones.forEach(m => m.achieved = false);
     this.achievedMilestones = [];
   }
 
-  // Calculate amount needed to reach a milestone percentage
+  // Get amount for a milestone % target
   calculateMilestoneAmount(percent: number, target: number) {
-    return target * (percent / 100);
+    return this.savings.getMilestoneAmount(percent, target);
   }
 
-  // Check milestone completion based on progress
+  // Check which milestones are achieved
   checkMilestones(showPopups = false) {
     const progress = this.progress;
 
-    this.milestones.forEach(m => {
-      const percent = m.percentage;
-      if (percent == null || isNaN(percent)) return;
+    const evaluated = this.savings.evaluateMilestones(progress, this.milestones);
 
-      // Mark as achieved
-      if (!m.achieved && progress >= percent) {
-        m.achieved = true;
-
-        if (!this.achievedMilestones.some((am: any) => am._id === m._id)) {
-          this.achievedMilestones.push(m);
-        }
-
+    evaluated.forEach((m, index) => {
+      // Trigger achievement event only once
+      if (!this.milestones[index].achieved && m.achieved) {
         this.milestoneService.achieveMilestone(m._id).subscribe();
-
-        if (showPopups) this.showMilestonePopup(percent);
-      }
-
-      // Mark as unachieved if progress decreases
-      if (m.achieved && progress < percent) {
-        m.achieved = false;
+        if (showPopups) this.showMilestonePopup(m.percentage);
       }
     });
 
-    this.achievedMilestones = this.milestones.filter(m => m.achieved);
+    this.milestones = evaluated;
+    this.achievedMilestones = evaluated.filter(m => m.achieved);
   }
 
-  // Display milestone achievement notification
+  // Show milestone popup message
   showMilestonePopup(percent: number) {
     this.milestonePopup = `Congratulations! You reached ${percent}% of your goal!`;
     setTimeout(() => this.milestonePopup = null, 4500);
   }
 
-  // Add a new contribution and update dashboard state
+  // Add new contribution
   onAddContribution(event: { amount: number; date: string; note: string }) {
     if (!event.amount) return;
 
@@ -240,21 +219,17 @@ export class Dashboard implements OnInit {
       next: (saved: any) => {
         alert('Contribution added!');
 
-        this.goal.currentAmount += saved.amount;
         this.goal.contributions.push(saved);
+        this.goal.currentAmount = this.savings.sumContributions(this.goal.contributions);
 
-        // Trigger Angular change detection
-        this.goal = {
-          ...this.goal,
-          contributions: [...this.goal.contributions]
-        };
+        this.goal = { ...this.goal };
 
         this.checkMilestones(true);
       }
     });
   }
 
-  // Delete a contribution and update totals
+  // Delete contribution
   deleteContribution(id: string) {
     if (!confirm('Delete this contribution?')) return;
 
@@ -263,16 +238,10 @@ export class Dashboard implements OnInit {
         this.goal.contributions = this.goal.contributions.filter(
           (c: any) => c._id !== id
         );
+        this.goal.currentAmount = this.savings.sumContributions(this.goal.contributions);
 
-        this.goal.currentAmount = this.goal.contributions.reduce(
-          (sum: number, c: any) => sum + c.amount, 0
-        );
-
-        // Trigger Angular change detection
-        this.goal = {
-          ...this.goal,
-          contributions: [...this.goal.contributions]
-        };
+        // Trigger change detection
+        this.goal = { ...this.goal };
 
         this.resetMilestones();
         this.checkMilestones(false);
