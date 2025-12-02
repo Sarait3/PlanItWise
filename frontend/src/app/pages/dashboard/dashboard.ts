@@ -134,8 +134,7 @@ export class Dashboard implements OnInit {
           achieved: false
         };
 
-        this.milestoneService.createMilestone(payload)
-          .subscribe(() => this.loadMilestones());
+        this.milestoneService.createMilestone(payload);
       }
     });
   }
