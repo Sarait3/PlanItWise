@@ -16,9 +16,6 @@ export class DashboardMilestonesComponent {
   /* List of milestones */
   @Input() milestones: any[] = [];
 
-  /* Function to compute milestone amounts */
-  @Input() calculateMilestoneAmountFn!: (percent: number, target: number) => number;
-
   /* Add milestone event */
   @Output() addMilestoneClicked =
     new EventEmitter<{ name: string; percentage: number }>();
@@ -50,10 +47,7 @@ export class DashboardMilestonesComponent {
 
   /* Calculate milestone amount */
   calcAmount(percent: number): number {
-    if (!this.goal?.targetAmount) return 0;
-
-    return this.calculateMilestoneAmountFn
-      ? this.calculateMilestoneAmountFn(percent, this.goal.targetAmount)
-      : 0;
+    return (percent / 100) * this.goal.targetAmount;
   }
+
 }
