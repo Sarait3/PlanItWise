@@ -13,6 +13,7 @@
     <p><strong>Required Monthly Savings:</strong> ${{ monthlyRequired }}</p>
   </div>
 
+  <!-- Achievable box -->
   <div *ngIf="goalIsAchievable" class="good-box">
     <h3>Great news! This goal is achievable.</h3>
     <p>
@@ -21,6 +22,7 @@
     </p>
   </div>
 
+  <!-- Not achievable box -->
   <div *ngIf="!goalIsAchievable" class="bad-box">
     <h3>⚠️ This goal isn’t achievable yet.</h3>
     <p>
@@ -37,15 +39,21 @@
   <div class="buttons-row">
     <button class="btn-back" (click)="back()">← Back</button>
 
+    <!-- EDIT MODE: show Save Changes -->
     <button
       class="btn-next"
-      *ngIf="goalIsAchievable"
+      *ngIf="wizard.editMode"
+      (click)="createPlan()">
+      Save Changes
+    </button>
+
+    <!-- CREATE MODE: show Create Plan -->
+    <button
+      class="btn-next"
+      *ngIf="!wizard.editMode && goalIsAchievable"
       (click)="createPlan()">
       Create Plan
     </button>
   </div>
+
 </div>
-
-
-
-

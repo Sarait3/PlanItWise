@@ -6,6 +6,7 @@ import { GoalService } from '../../services/goal.service';
 import { MilestonesService } from '../../services/milestones.service';
 import { ContributionService } from '../../services/contribution.service';
 import { SavingsPlanService } from '../../services/savings-plan.service';
+import { GoalWizardService } from '../../services/goal-wizard.service';
 
 import { DashboardChartComponent } from './chart/chart.component';
 import { DashboardGoalComponent } from './goal/goal.component';
@@ -44,8 +45,10 @@ export class Dashboard implements OnInit {
     private goalService: GoalService,
     private milestoneService: MilestonesService,
     private contributionService: ContributionService,
-    private savings: SavingsPlanService
-  ) {}
+    private savings: SavingsPlanService,
+    private goalWizardService: GoalWizardService
+  ) { }
+
 
   ngOnInit() {
     // Load the user's goal from backend
@@ -108,6 +111,12 @@ export class Dashboard implements OnInit {
       this.goal = null;
     });
   }
+
+  onEditGoal() {
+    this.goalWizardService.preloadGoalForEditing(this.goal);
+    this.router.navigate(['/goal/step1'], { queryParams: { edit: true } });
+  }
+
 
   // Load milestones from backend
   loadMilestones() {

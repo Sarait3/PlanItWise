@@ -6,6 +6,7 @@ import { GoalWizardService } from '../../../services/goal-wizard.service';
 import { GoalService } from '../../../services/goal.service';
 import { AuthService } from '../../../services/auth.service';
 import { SavingsPlanService } from '../../../services/savings-plan.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
     selector: 'app-goal-step4',
@@ -15,50 +16,43 @@ import { SavingsPlanService } from '../../../services/savings-plan.service';
 })
 export class Step4Component implements OnInit {
 
-    // Wizard data from previous steps
     data: any = {};
-
-    // Calculated fields
     monthlyRequired = 0;
     monthlyAvailable = 0;
     goalIsAchievable = false;
 
     constructor(
-        private wizard: GoalWizardService,
+        public wizard: GoalWizardService,
         private goalService: GoalService,
         private auth: AuthService,
         private router: Router,
-        private savings: SavingsPlanService
-    ) {}
+        private savings: SavingsPlanService,
+        private userService: UserService
+    ) { }
+
+
 
     ngOnInit(): void {
-        // Retrieve all data entered in previous wizard steps
         this.data = this.wizard.getData();
 
         const targetAmount = this.data.targetAmount;
         const targetDate = new Date(this.data.targetDate);
 
-        // Calculate how much the user has available to save per month
-        this.monthlyAvailable =
-            this.data.monthlyIncome - this.data.monthlyExpenses;
+        this.monthlyAvailable = this.data.monthlyIncome - this.data.monthlyExpenses;
 
-        // Calculate required monthly savings
         this.monthlyRequired = this.savings.getMonthlyRequired(
             targetAmount,
             0,
             targetDate
         );
 
-        // Compare required amount with what the user can actually save
         this.goalIsAchievable = this.monthlyAvailable >= this.monthlyRequired;
     }
 
-    // Return to previous wizard step
     back() {
         this.router.navigate(['/goal/step3']);
     }
 
-    // Create goal in database and navigate to dashboard
     createPlan() {
         const userId = localStorage.getItem('userId');
         if (!userId) {
@@ -66,21 +60,55 @@ export class Step4Component implements OnInit {
             return;
         }
 
-        // Prepare the payload for backend
-        const payload = {
-            user: userId,
-            title: this.data.goalName,
-            description: this.data.category || "",
-            targetAmount: this.data.targetAmount,
-            deadline: new Date(this.data.targetDate),
-            currentAmount: 0,
-            status: "active"
+        const finances = {
+            monthlyIncome: this.data.monthlyIncome,
+            monthlyExpenses: this.data.monthlyExpenses
         };
 
-        // Send goal to backend
-        this.goalService.createGoal(payload).subscribe({
-            next: () => this.router.navigate(['/dashboard']),
-            error: (err) => console.error("Backend error:", err.error || err)
+        // Save user finances
+        this.userService.updateFinances(finances).subscribe({
+            next: () => {
+
+                const payload = {
+                    title: this.data.goalName,
+                    description: this.data.category || "",
+                    targetAmount: this.data.targetAmount,
+                    deadline: new Date(this.data.targetDate)
+                };
+
+                // EDIT MODE: update goal
+                if (this.wizard.editMode && this.wizard.goalIdToEdit) {
+                    this.goalService.updateGoal(this.wizard.goalIdToEdit, payload).subscribe({
+                        next: () => {
+                            this.wizard.reset();
+                            this.router.navigate(['/dashboard']);
+                        },
+                        error: err => console.error("Goal update error:", err)
+                    });
+                    return;
+                }
+
+                // CREATE MODE: create new goal
+                const fullPayload = {
+                    ...payload,
+                    user: userId,
+                    currentAmount: 0,
+                    status: "active"
+                };
+
+                this.goalService.createGoal(fullPayload).subscribe({
+                    next: () => {
+                        this.wizard.reset();
+                        this.router.navigate(['/dashboard']);
+                    },
+                    error: err => console.error("Goal creation error:", err)
+                });
+            },
+
+            error: err => {
+                console.error("Failed to save finances:", err);
+            }
         });
     }
+
 }

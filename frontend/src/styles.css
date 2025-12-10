@@ -619,6 +619,22 @@ canvas {
   font-weight: 600;
 }
 
+.edit-btn {
+  margin-top: auto;
+  background: #005eb8;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #d0e2ff;
+}
+
 /* Delete goal */
 .delete-btn {
   margin-top: auto;

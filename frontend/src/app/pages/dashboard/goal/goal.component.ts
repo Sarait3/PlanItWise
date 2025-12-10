@@ -9,23 +9,19 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardGoalComponent {
 
-  /* Goal info */
   @Input() goal: any;
-
-  /* Goal progress */
   @Input() progress = 0;
-
-  /* Required monthly amount */
   @Input() monthlyRequired = 0;
-
-  /* Achieved milestones */
   @Input() achievedMilestones: any[] = [];
 
-  /* Delete goal event */
   @Output() deleteGoalClicked = new EventEmitter<void>();
+  @Output() editGoalClicked = new EventEmitter<void>();
 
-  /* Trigger delete */
   onDelete() {
     this.deleteGoalClicked.emit();
+  }
+
+  onEdit() {
+    this.editGoalClicked.emit();
   }
 }

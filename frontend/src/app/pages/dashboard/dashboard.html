@@ -22,33 +22,24 @@
   <div *ngIf="!loading && goal">
 
     <!-- CHART -->
-    <app-dashboard-chart
-      [goal]="goal"
-      [contributions]="goal.contributions">
+    <app-dashboard-chart [goal]="goal" [contributions]="goal.contributions">
     </app-dashboard-chart>
 
     <div class="bottom-grid">
 
       <!-- GOAL SUMMARY -->
-      <app-dashboard-goal
-        [goal]="goal"
-        [progress]="progress"
-        [monthlyRequired]="monthlyRequired"
-        [achievedMilestones]="achievedMilestones"
-        (deleteGoalClicked)="onDeleteGoal()">
+      <app-dashboard-goal [goal]="goal" [progress]="progress" [monthlyRequired]="monthlyRequired"
+        [achievedMilestones]="achievedMilestones" (deleteGoalClicked)="onDeleteGoal()" (editGoalClicked)="onEditGoal()">
       </app-dashboard-goal>
 
+
       <!-- CONTRIBUTIONS -->
-      <app-dashboard-contributions
-        (addContributionClicked)="onAddContribution($event)"
+      <app-dashboard-contributions (addContributionClicked)="onAddContribution($event)"
         (historyClicked)="toggleHistoryPanel()">
       </app-dashboard-contributions>
 
       <!-- MILESTONES -->
-      <app-dashboard-milestones
-        [goal]="goal"
-        [milestones]="milestones"
-        (addMilestoneClicked)="onAddMilestone($event)"
+      <app-dashboard-milestones [goal]="goal" [milestones]="milestones" (addMilestoneClicked)="onAddMilestone($event)"
         (deleteMilestoneClicked)="onDeleteMilestone($event)">
       </app-dashboard-milestones>
 
@@ -80,5 +71,5 @@
       </div>
     </div>
 
-  </div> 
+  </div>
 </div>

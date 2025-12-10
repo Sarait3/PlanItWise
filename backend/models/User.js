@@ -14,6 +14,16 @@ const UserSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
+
+  monthlyIncome: { 
+    type: Number, 
+    default: 0 
+  },
+  monthlyExpenses: { 
+    type: Number, 
+    default: 0 
+  },
+
   date: { 
     type: Date, 
     default: Date.now 

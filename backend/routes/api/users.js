@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
 router.post(
@@ -59,5 +60,33 @@ router.post(
     }
   }
 );
+
+
+router.get('/me', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+router.put('/finances', auth, async (req, res) => {
+  const { monthlyIncome, monthlyExpenses } = req.body;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      { monthlyIncome, monthlyExpenses },
+      { new: true }
+    ).select('-password');
+
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 module.exports = router;

@@ -18,7 +18,7 @@ export class Step2Component implements OnInit {
   constructor(
     private wizard: GoalWizardService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     const data = this.wizard.getData();
@@ -30,8 +30,10 @@ export class Step2Component implements OnInit {
   next() {
     this.wizard.setStepData('targetAmount', this.targetAmount);
     this.wizard.setStepData('targetDate', this.targetDate);
+
     this.router.navigate(['/goal/step3']);
   }
+
 
   back() {
     this.router.navigate(['/goal/step1']);
