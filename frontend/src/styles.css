@@ -477,22 +477,17 @@ a:hover {
 /* CHART */
 .top-chart-section {
   width: 100%;
-  background: white;
-  padding: 25px;
+  padding: 5px;
   border-radius: 18px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
   margin-bottom: 35px;
+  background: transparent;
+  box-shadow: none; 
 }
 
 .chart-title {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 15px;
-}
-
-canvas {
-  width: 100% !important;
-  height: 350px !important;
 }
 
 .dashboard-container .top-chart-section {
@@ -945,6 +940,60 @@ canvas {
 .milestone-popup .emoji {
   font-size: 2.4rem;
 }
+
+.top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.top-left,
+.top-right {
+  background: white;
+  padding: 10px;
+  padding-left: 25px;
+  padding-right: 20px;
+  border-radius: 18px;
+
+}
+
+.top-left {
+  height: 460px;       
+  padding: 17px;
+  background: white;
+  border-radius: 18px;
+
+}
+
+.top-left app-dashboard-chart {
+  height: 100%; 
+  display: block;
+}
+
+.top-left canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.top-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+
+.top-chart-section .chart-title {
+  margin-bottom: 20px; 
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .top-row {
+    grid-template-columns: 1fr; 
+  }
+}
+
 
 @keyframes slideDown {
   from { transform: translateY(-25px); opacity: 0; }

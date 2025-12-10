@@ -16,7 +16,7 @@ Chart.register(...registerables);
   selector: 'app-dashboard-chart',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './chart.component.html'
+  templateUrl: './progress-chart.component.html'
 })
 export class DashboardChartComponent implements AfterViewInit, OnChanges {
 
@@ -121,6 +121,12 @@ export class DashboardChartComponent implements AfterViewInit, OnChanges {
       },
       options: {
         plugins: { legend: { display: false } },
+        layout: {
+          padding: {
+            top: 20,
+            bottom: 10
+          }
+        },
         scales: {
           y: {
             min: 0,
@@ -130,7 +136,15 @@ export class DashboardChartComponent implements AfterViewInit, OnChanges {
                 '$' + Number(value).toLocaleString()
             }
           },
-          x: { grid: { display: false } }
+          x: {
+            grid: { display: false },
+            ticks: {
+              maxRotation: 30,
+              minRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 8
+            }
+          }
         }
       }
     });

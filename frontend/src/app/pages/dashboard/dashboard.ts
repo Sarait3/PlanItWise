@@ -8,10 +8,11 @@ import { ContributionService } from '../../services/contribution.service';
 import { SavingsPlanService } from '../../services/savings-plan.service';
 import { GoalWizardService } from '../../services/goal-wizard.service';
 
-import { DashboardChartComponent } from './chart/chart.component';
+import { DashboardChartComponent } from './charts/progress-chart.component';
 import { DashboardGoalComponent } from './goal/goal.component';
 import { DashboardContributionsComponent } from './contributions/contributions.component';
 import { DashboardMilestonesComponent } from './milestones/milestones.component';
+import { ContributionSummaryComponent } from './charts/contribution-summary.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,22 +22,21 @@ import { DashboardMilestonesComponent } from './milestones/milestones.component'
     DashboardChartComponent,
     DashboardGoalComponent,
     DashboardContributionsComponent,
-    DashboardMilestonesComponent
+    DashboardMilestonesComponent,
+
+    /* 🔥 REGISTER THE COMPONENT HERE */
+    ContributionSummaryComponent
   ],
   templateUrl: './dashboard.html'
 })
 export class Dashboard implements OnInit {
-
-  // Goal and user state
   goal: any = null;
   loading = true;
   userName = localStorage.getItem('userName') || 'User';
 
-  // Milestone state
   milestones: any[] = [];
   achievedMilestones: any[] = [];
 
-  // UI state
   historyOpen = false;
   milestonePopup: string | null = null;
 
@@ -47,26 +47,21 @@ export class Dashboard implements OnInit {
     private contributionService: ContributionService,
     private savings: SavingsPlanService,
     private goalWizardService: GoalWizardService
-  ) { }
-
+  ) {}
 
   ngOnInit() {
-    // Load the user's goal from backend
     this.goalService.getGoal().subscribe({
       next: (data: any) => {
         this.goal = data || null;
         this.loading = false;
 
         if (this.goal) {
-          // Ensure contributions array exists
           if (!this.goal.contributions) this.goal.contributions = [];
 
-          // Calculate total contribution amount
           this.goal.currentAmount = this.savings.sumContributions(
             this.goal.contributions
           );
 
-          // Load and evaluate milestones
           this.loadMilestones();
           setTimeout(() => this.checkMilestones(), 60);
         }
@@ -78,7 +73,6 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Compute progress percentage
   get progress(): number {
     if (!this.goal) return 0;
     return this.savings.getProgress(
@@ -87,7 +81,6 @@ export class Dashboard implements OnInit {
     );
   }
 
-  // Compute monthly required amount
   get monthlyRequired(): number {
     if (!this.goal) return 0;
     return this.savings.getMonthlyRequired(
@@ -97,12 +90,10 @@ export class Dashboard implements OnInit {
     );
   }
 
-  // Navigate to goal creation wizard
   goToCreateGoal() {
     this.router.navigate(['/goal/step1']);
   }
 
-  // Delete the active goal
   onDeleteGoal() {
     if (!this.goal?._id) return;
     if (!confirm('Delete this goal?')) return;
@@ -117,8 +108,6 @@ export class Dashboard implements OnInit {
     this.router.navigate(['/goal/step1'], { queryParams: { edit: true } });
   }
 
-
-  // Load milestones from backend
   loadMilestones() {
     this.milestoneService.getMilestonesByGoal(this.goal._id)
       .subscribe(res => {
@@ -128,7 +117,6 @@ export class Dashboard implements OnInit {
       });
   }
 
-  // Ensure 25/50/75% milestones exist
   ensureDefaultMilestones() {
     const defaults = this.savings.getDefaultMilestones();
     const existing = this.milestones.map(m => m.percentage);
@@ -148,7 +136,6 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Add custom milestone
   onAddMilestone(event: { name: string; percentage: number }) {
     if (!event.name || !event.percentage) return;
 
@@ -164,7 +151,6 @@ export class Dashboard implements OnInit {
       .subscribe(() => this.loadMilestones());
   }
 
-  // Delete milestone
   onDeleteMilestone(id: string) {
     if (!confirm("Are you sure you want to delete this milestone?")) return;
 
@@ -177,25 +163,21 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Reset all milestone achievement flags
   resetMilestones() {
     this.milestones.forEach(m => m.achieved = false);
     this.achievedMilestones = [];
   }
 
-  // Get amount for a milestone % target
   calculateMilestoneAmount(percent: number, target: number) {
     return this.savings.getMilestoneAmount(percent, target);
   }
 
-  // Check which milestones are achieved
   checkMilestones(showPopups = false) {
     const progress = this.progress;
 
     const evaluated = this.savings.evaluateMilestones(progress, this.milestones);
 
     evaluated.forEach((m, index) => {
-      // Trigger achievement event only once
       if (!this.milestones[index].achieved && m.achieved) {
         this.milestoneService.achieveMilestone(m._id).subscribe();
         if (showPopups) this.showMilestonePopup(m.percentage);
@@ -206,13 +188,11 @@ export class Dashboard implements OnInit {
     this.achievedMilestones = evaluated.filter(m => m.achieved);
   }
 
-  // Show milestone popup message
   showMilestonePopup(percent: number) {
     this.milestonePopup = `Congratulations! You reached ${percent}% of your goal!`;
     setTimeout(() => this.milestonePopup = null, 4500);
   }
 
-  // Add new contribution
   onAddContribution(event: { amount: number; date: string; note: string }) {
     if (!event.amount) return;
 
@@ -237,7 +217,6 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Delete contribution
   deleteContribution(id: string) {
     if (!confirm('Delete this contribution?')) return;
 
@@ -248,7 +227,6 @@ export class Dashboard implements OnInit {
         );
         this.goal.currentAmount = this.savings.sumContributions(this.goal.contributions);
 
-        // Trigger change detection
         this.goal = { ...this.goal };
 
         this.resetMilestones();
@@ -257,7 +235,6 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Toggle contribution history modal
   toggleHistoryPanel() {
     this.historyOpen = !this.historyOpen;
   }

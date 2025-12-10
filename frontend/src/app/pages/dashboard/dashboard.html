@@ -21,25 +21,53 @@
   <!-- DASHBOARD -->
   <div *ngIf="!loading && goal">
 
-    <!-- CHART -->
-    <app-dashboard-chart [goal]="goal" [contributions]="goal.contributions">
-    </app-dashboard-chart>
+    <!-- ====================== TOP SECTION ====================== -->
+    <div class="top-row">
+
+      <!-- LEFT → Progress Chart -->
+      <div class="top-left">
+        <app-dashboard-chart
+          [goal]="goal"
+          [contributions]="goal.contributions">
+        </app-dashboard-chart>
+      </div>
+
+      <!-- RIGHT → Contribution Summary -->
+      <div class="top-right">
+        <app-dashboard-contribution-summary
+          [contributions]="goal.contributions"
+          [targetAmount]="goal.targetAmount"
+          [currentAmount]="goal.currentAmount"
+          [monthlyRequired]="monthlyRequired">
+        </app-dashboard-contribution-summary>
+      </div>
+
+    </div>
+    <!-- ========================================================== -->
 
     <div class="bottom-grid">
 
       <!-- GOAL SUMMARY -->
-      <app-dashboard-goal [goal]="goal" [progress]="progress" [monthlyRequired]="monthlyRequired"
-        [achievedMilestones]="achievedMilestones" (deleteGoalClicked)="onDeleteGoal()" (editGoalClicked)="onEditGoal()">
+      <app-dashboard-goal
+        [goal]="goal"
+        [progress]="progress"
+        [monthlyRequired]="monthlyRequired"
+        [achievedMilestones]="achievedMilestones"
+        (deleteGoalClicked)="onDeleteGoal()"
+        (editGoalClicked)="onEditGoal()">
       </app-dashboard-goal>
 
-
       <!-- CONTRIBUTIONS -->
-      <app-dashboard-contributions (addContributionClicked)="onAddContribution($event)"
+      <app-dashboard-contributions
+        (addContributionClicked)="onAddContribution($event)"
         (historyClicked)="toggleHistoryPanel()">
       </app-dashboard-contributions>
 
       <!-- MILESTONES -->
-      <app-dashboard-milestones [goal]="goal" [milestones]="milestones" (addMilestoneClicked)="onAddMilestone($event)"
+      <app-dashboard-milestones
+        [goal]="goal"
+        [milestones]="milestones"
+        (addMilestoneClicked)="onAddMilestone($event)"
         (deleteMilestoneClicked)="onDeleteMilestone($event)">
       </app-dashboard-milestones>
 
