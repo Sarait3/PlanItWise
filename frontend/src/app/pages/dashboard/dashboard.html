@@ -21,10 +21,9 @@
   <!-- DASHBOARD -->
   <div *ngIf="!loading && goal">
 
-    <!-- ====================== TOP SECTION ====================== -->
     <div class="top-row">
 
-      <!-- LEFT → Progress Chart -->
+      <!-- Progress Chart -->
       <div class="top-left">
         <app-dashboard-chart
           [goal]="goal"
@@ -32,7 +31,7 @@
         </app-dashboard-chart>
       </div>
 
-      <!-- RIGHT → Contribution Summary -->
+      <!-- Contribution Summary -->
       <div class="top-right">
         <app-dashboard-contribution-summary
           [contributions]="goal.contributions"
@@ -43,7 +42,6 @@
       </div>
 
     </div>
-    <!-- ========================================================== -->
 
     <div class="bottom-grid">
 

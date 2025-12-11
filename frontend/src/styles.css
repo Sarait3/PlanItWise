@@ -8,7 +8,6 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
 a:hover {
   text-decoration: underline;
 }
@@ -27,13 +26,11 @@ a:hover {
   text-align: center;
   margin-bottom: 24px;
 }
-
 .auth-header h1 {
   margin: 0;
   font-size: 2.1rem;
   font-weight: 700;
 }
-
 .auth-header p {
   margin: 8px 0 0;
   color: #6b7280;
@@ -47,13 +44,11 @@ a:hover {
   padding: 32px 40px;
   box-shadow: 0 24px 48px rgba(15, 23, 42, 0.08);
 }
-
 .auth-card h2 {
   text-align: center;
   margin: 0 0 4px;
   font-size: 1.6rem;
 }
-
 .auth-card > p {
   text-align: center;
   margin: 0 0 24px;
@@ -64,7 +59,6 @@ a:hover {
 .auth-field {
   margin-bottom: 16px;
 }
-
 .auth-label {
   display: block;
   margin-bottom: 6px;
@@ -75,7 +69,6 @@ a:hover {
 .auth-input-wrapper {
   position: relative;
 }
-
 .auth-input {
   width: 100%;
   padding: 10px 14px;
@@ -86,12 +79,10 @@ a:hover {
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
-
 .auth-input:focus {
   border-color: #1d4ed8;
   box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35);
 }
-
 .auth-input::placeholder {
   color: #9ca3af;
 }
@@ -109,7 +100,6 @@ a:hover {
   align-items: center;
   gap: 6px;
 }
-
 .auth-remember input {
   accent-color: #1d4ed8;
 }
@@ -125,7 +115,6 @@ a:hover {
   cursor: pointer;
   margin-top: 4px;
 }
-
 .auth-primary-btn:disabled {
   opacity: 0.6;
   cursor: default;
@@ -139,7 +128,6 @@ a:hover {
   color: #9ca3af;
   font-size: 0.85rem;
 }
-
 .auth-divider-line {
   flex: 1;
   height: 1px;
@@ -159,7 +147,6 @@ a:hover {
   font-size: 0.95rem;
   cursor: pointer;
 }
-
 .auth-google-logo {
   font-weight: 700;
 }
@@ -170,7 +157,6 @@ a:hover {
   font-size: 0.9rem;
   color: #6b7280;
 }
-
 .auth-footer a {
   color: #005eb8;
   font-weight: 600;
@@ -206,11 +192,9 @@ a:hover {
   align-items: center;
   gap: 12px;
 }
-
 .home-header-logo {
   height: 70px;
 }
-
 .home-header-title {
   margin: 0;
   font-size: 1.4rem;
@@ -221,7 +205,6 @@ a:hover {
   gap: 16px;
   align-items: center;
 }
-
 .home-nav a {
   font-size: 1rem;
   color: #005eb8;
@@ -232,28 +215,23 @@ a:hover {
   text-align: center;
   padding: 0 24px;
 }
-
 .home-hero h1 {
   font-size: 2.4rem;
   margin-bottom: 16px;
   color: #111827;
 }
-
 .home-hero-highlight {
   color: #005eb8;
 }
-
 .home-hero p {
   max-width: 600px;
   margin: 0 auto;
   font-size: 1.1rem;
   color: #6b7280;
 }
-
 .home-hero-btn {
   margin-top: 24px;
 }
-
 .home-hero-login {
   margin-top: 12px;
   color: #005eb8;
@@ -266,19 +244,16 @@ a:hover {
   justify-content: center;
   gap: 32px;
   padding: 0 24px;
-  flex-wrap: nowrap;
 }
 
 .home-feature-card {
   max-width: 300px;
   text-align: center;
 }
-
 .home-feature-icon {
   font-size: 2rem;
   margin-bottom: 10px;
 }
-
 .home-feature-card h2 {
   font-size: 1.3rem;
   margin-bottom: 8px;
@@ -302,14 +277,12 @@ a:hover {
   padding: 32px;
   border-radius: 20px;
 }
-
 .wizard-title {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 12px;
   color: #0f172a;
 }
-
 .wizard-subtitle {
   color: #475569;
   margin-bottom: 20px;
@@ -318,7 +291,6 @@ a:hover {
 .field {
   margin-bottom: 24px;
 }
-
 .field label {
   display: block;
   margin-bottom: 6px;
@@ -335,7 +307,6 @@ a:hover {
   font-size: 1rem;
   outline: none;
 }
-
 .input-text:focus,
 .input-number:focus,
 .input-date:focus {
@@ -359,7 +330,6 @@ a:hover {
   font-size: 1rem;
   color: #334155;
 }
-
 .btn-cancel:hover,
 .btn-back:hover {
   background: #f1f5f9;
@@ -376,12 +346,10 @@ a:hover {
   font-size: 1rem;
   transition: background 0.2s;
 }
-
 .btn-next:disabled {
   background: #9cc3e7;
   cursor: not-allowed;
 }
-
 .btn-next:hover:not(:disabled) {
   background: #004a93;
 }
@@ -397,7 +365,6 @@ a:hover {
   display: block;
   margin: 20px auto 0;
 }
-
 .btn-create:hover {
   background: #004a93;
 }
@@ -418,20 +385,15 @@ a:hover {
   font-size: 0.95rem;
   transition: all 0.2s;
 }
-
 .category-btn:hover {
   background: #d7e9ff;
 }
-
 .category-btn.selected {
   background: #005eb8;
   color: white;
   border-color: #005eb8;
 }
 
-/* 
-   DASHBOARD
-                */
 .dashboard-container {
   --card-height: 420px;
   max-width: 1400px;
@@ -439,7 +401,6 @@ a:hover {
   padding: 20px;
 }
 
-/* EMPTY STATE */
 .empty-state {
   background: white;
   padding: 40px;
@@ -449,20 +410,17 @@ a:hover {
   max-width: 550px;
   margin: 80px auto;
 }
-
 .empty-state h2 {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 12px;
   color: #111;
 }
-
 .empty-state p {
   font-size: 17px;
   color: #555;
   margin-bottom: 25px;
 }
-
 .empty-state .btn {
   background: #005eb8;
   color: white;
@@ -474,16 +432,14 @@ a:hover {
   font-size: 15px;
 }
 
-/* CHART */
 .top-chart-section {
   width: 100%;
   padding: 5px;
   border-radius: 18px;
   margin-bottom: 35px;
   background: transparent;
-  box-shadow: none; 
+  box-shadow: none;
 }
-
 .chart-title {
   font-size: 20px;
   font-weight: 700;
@@ -494,7 +450,6 @@ a:hover {
   box-sizing: border-box;
 }
 
-/* 3-COLUMN GRID */
 .bottom-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -502,7 +457,6 @@ a:hover {
   align-items: stretch;
 }
 
-/* CARD PANELS */
 .left-summary,
 .contribution-panel,
 .milestones-panel {
@@ -513,7 +467,6 @@ a:hover {
   height: var(--card-height);
   display: flex;
   flex-direction: column;
-  max-width: 100%;
   box-sizing: border-box;
 }
 
@@ -521,7 +474,7 @@ a:hover {
 .milestones-panel {
   overflow-y: auto;
   width: 100%;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
 .contribution-panel input,
@@ -542,10 +495,9 @@ a:hover {
 }
 
 .left-summary {
-  overflow: hidden; 
+  overflow: hidden;
 }
 
-/* GOAL SUMMARY */
 .goal-title {
   font-size: 24px;
   font-weight: 700;
@@ -559,7 +511,7 @@ a:hover {
 .summary-box {
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 5px 0;
 }
 
 .value {
@@ -569,21 +521,18 @@ a:hover {
 }
 
 .progress-container {
-  margin: 15px 0;
+  margin: 5px 0;
 }
-
 .progress-label {
   font-size: 15px;
   margin-bottom: 6px;
   color: #444;
 }
-
 .progress-bar {
   height: 8px;
   background: #e8e9ee;
   border-radius: 12px;
 }
-
 .fill {
   height: 8px;
   background: #005eb8;
@@ -591,9 +540,8 @@ a:hover {
 }
 
 .monthly-box {
-  margin-top: 15px;
+  margin-top: 5px;
 }
-
 .monthly-value {
   font-size: 22px;
   font-weight: bold;
@@ -603,7 +551,6 @@ a:hover {
 .badge-row {
   margin-top: 10px;
 }
-
 .badge {
   display: inline-block;
   background: #e0ecff;
@@ -625,12 +572,10 @@ a:hover {
   font-weight: 700;
   cursor: pointer;
 }
-
 .edit-btn:hover {
   background: #d0e2ff;
 }
 
-/* Delete goal */
 .delete-btn {
   margin-top: auto;
   background: #e11d48;
@@ -642,12 +587,10 @@ a:hover {
   font-weight: 700;
   cursor: pointer;
 }
-
 .delete-btn:hover {
   background: #be123c;
 }
 
-/* CONTRIBUTION PANEL */
 .contribution-panel h3 {
   font-size: 20px;
   font-weight: 700;
@@ -665,7 +608,6 @@ a:hover {
   border: none;
   cursor: pointer;
 }
-
 .add-contrib-btn:hover {
   background: #004a94;
 }
@@ -680,12 +622,10 @@ a:hover {
   color: white;
   cursor: pointer;
 }
-
 .history-btn:hover {
   background: #4b62d4;
 }
 
-/* MILESTONES */
 .milestones-panel .panel-title {
   font-size: 20px;
   font-weight: 700;
@@ -698,7 +638,6 @@ a:hover {
   border-radius: 12px;
   margin-bottom: 15px;
 }
-
 .add-box input {
   width: 100%;
   padding: 10px;
@@ -706,7 +645,6 @@ a:hover {
   border: 1px solid #ddd;
   margin-top: 8px;
 }
-
 .add-box button {
   margin-top: 10px;
   width: 100%;
@@ -717,7 +655,6 @@ a:hover {
   border: none;
   cursor: pointer;
 }
-
 .add-box button:hover {
   background: #004a94;
 }
@@ -741,7 +678,6 @@ a:hover {
   transition: 0.25s ease;
   box-shadow: 0 3px 8px rgba(0,0,0,0.04);
 }
-
 .milestone-card.achieved {
   background: #eef6ff;
   border-color: #005eb8;
@@ -753,7 +689,6 @@ a:hover {
   gap: 16px;
   align-items: center;
 }
-
 .milestone-icon {
   width: 32px;
   height: 32px;
@@ -766,7 +701,6 @@ a:hover {
   color: white;
   transition: 0.2s ease;
 }
-
 .milestone-icon.done {
   background: #005eb8;
 }
@@ -776,7 +710,6 @@ a:hover {
   align-items: center;
   gap: 6px;
 }
-
 .milestone-title {
   font-size: 17px;
   font-weight: 600;
@@ -822,7 +755,6 @@ a:hover {
   opacity: 0.35;
   transition: 0.25s;
 }
-
 .milestone-badge.active {
   opacity: 1;
   transform: scale(1.1);
@@ -837,27 +769,11 @@ a:hover {
   color: #d9534f;
   transition: 0.2s ease;
 }
-
 .delete-milestone-btn:hover {
   color: #b52b27;
   transform: scale(1.1);
 }
 
-.milestones-panel .add-box input {
-  width: 90%;
-  max-width: 420px;
-  margin: 8px auto;
-  display: block;
-}
-
-.milestones-panel .add-box button {
-  width: 90%;
-  max-width: 420px;
-  margin: 12px auto 0;
-  display: block;
-}
-
-/* HISTORY MODAL */
 .history-overlay {
   position: fixed;
   top: 0;
@@ -904,12 +820,10 @@ a:hover {
   border-radius: 6px;
   cursor: pointer;
 }
-
 .delete-contrib-btn:hover {
   background: #b02a37;
 }
 
-/* POPUP */
 .milestone-popup {
   padding: 22px 0;
   background: linear-gradient(90deg, #005eb8, #4b62d4);
@@ -922,21 +836,19 @@ a:hover {
   animation: slideDown 0.45s ease-out;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   position: fixed;
-  top: 70px;   
+  top: 70px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 99999 !important;
   width: 90%;
   max-width: 800px;
 }
-
 .milestone-popup-inner {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
 }
-
 .milestone-popup .emoji {
   font-size: 2.4rem;
 }
@@ -951,26 +863,22 @@ a:hover {
 .top-left,
 .top-right {
   background: white;
-  padding: 10px;
-  padding-left: 25px;
-  padding-right: 20px;
+  padding: 15px 25px;
   border-radius: 18px;
-
+  height: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow: hidden;
 }
 
 .top-left {
-  height: 460px;       
   padding: 17px;
-  background: white;
-  border-radius: 18px;
-
 }
-
 .top-left app-dashboard-chart {
-  height: 100%; 
+  height: 100%;
   display: block;
 }
-
 .top-left canvas {
   width: 100% !important;
   height: 100% !important;
@@ -982,18 +890,195 @@ a:hover {
   justify-content: flex-start;
 }
 
-
 .top-chart-section .chart-title {
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
-/* Mobile */
+.summary-box canvas {
+  display: block;
+  margin-top: 10px;
+}
+
+.summary-box {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.summary-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+.summary-item label {
+  font-weight: 600;
+  color: #444;
+}
+
+.summary-message {
+  font-size: 15px;
+  font-weight: 600;
+  color: #005eb8;
+}
+
+.summary-chart {
+  width: 100%;
+  height: 230px;
+}
+.summary-chart canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.summary-item label {
+  font-size: 13px;
+  color: #6b7280;
+}
+.summary-item .value {
+  font-weight: 700;
+  font-size: 18px;
+  color: #005eb8;
+}
+
+.status-box {
+  background: #eef6ff;
+  padding: 0px;
+  border-radius: 12px;
+  border-left: 5px solid #a7c7ff;
+}
+.status-box.ahead {
+  border-left-color: #16a34a;
+  background: #e8f7ed;
+}
+.status-box.behind {
+  border-left-color: #dc2626;
+  background: #fdf2f2;
+}
+
+.status-main {
+  font-weight: 600;
+  margin: 4px 0;
+}
+.status-hint {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 220px;
+}
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.text-ahead {
+  color: #16a34a;
+}
+.text-behind {
+  color: #dc2626;
+}
+
+.schedule-status {
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin: 0;
+  background: #f8fafc;
+  border-left: 5px solid #cbd5e1;
+}
+.schedule-status.ahead {
+  background: #e9f8ef;
+  border-left-color: #16a34a;
+}
+.schedule-status.behind {
+  background: #fdecec;
+  border-left-color: #dc2626;
+}
+.schedule-status.ontrack {
+  background: #eef6ff;
+  border-left-color: #3b82f6;
+}
+
+.full-width-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-container {
+  flex-grow: 1;
+  min-height: 180px;
+  max-height: 220px;
+  width: 100%;
+  position: relative;
+}
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.top-right .summary-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
+  margin: 0;
+  height: 100%;
+}
+
+.top-right hr {
+  margin: 8px 0;
+}
+
+.top-right .chart-container {
+  flex-grow: 1;
+  width: 100%;
+  margin-top: 8px;
+  position: relative;
+}
+.top-right .chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+
 @media (max-width: 900px) {
   .top-row {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
 }
-
 
 @keyframes slideDown {
   from { transform: translateY(-25px); opacity: 0; }
@@ -1005,12 +1090,10 @@ a:hover {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* RESPONSIVE */
 @media (max-width: 1100px) {
   .bottom-grid {
     grid-template-columns: 1fr;
   }
-
   .left-summary,
   .contribution-panel,
   .milestones-panel {

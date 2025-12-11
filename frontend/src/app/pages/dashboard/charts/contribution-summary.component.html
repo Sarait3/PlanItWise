@@ -2,4 +2,56 @@
 
   <h3 class="title">📊 Contribution Summary</h3>
 
-  
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="summary-item">
+      <label>Total Contributions:</label>
+      <span>{{ currentAmount | currency }}</span>
+    </div>
+
+    <div class="summary-item">
+      <label>Average Contribution:</label>
+      <span>
+        {{
+          (contributions.length > 0
+            ? currentAmount / contributions.length
+            : 0) | number:'1.0-0'
+        }} $
+      </span>
+    </div>
+
+    <div class="summary-item">
+      <label>Months Active:</label>
+      <span>{{ monthsActive }} months</span>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Schedule Message -->
+  <div class="schedule-status"
+       [class.ahead]="isAhead"
+       [class.behind]="isBehind"
+       [class.ontrack]="isOnTrack">
+
+    <p class="status-main"
+       [class.text-ahead]="isAhead || isOnTrack"
+       [class.text-behind]="isBehind">
+      {{ scheduleStatus }}
+    </p>
+
+    <p *ngIf="catchUpAmount"
+       class="status-hint text-behind">
+      💡 Contribute {{ catchUpAmount | currency }}
+      next month to get back on track.
+    </p>
+  </div>
+
+  <hr />
+
+  <!-- Bar Chart -->
+  <div class="chart-container">
+    <canvas #barCanvas class="full-width-chart" height="180"></canvas>
+  </div>
+
+</div>

@@ -23,13 +23,12 @@ import { ContributionSummaryComponent } from './charts/contribution-summary.comp
     DashboardGoalComponent,
     DashboardContributionsComponent,
     DashboardMilestonesComponent,
-
-    /* 🔥 REGISTER THE COMPONENT HERE */
     ContributionSummaryComponent
   ],
   templateUrl: './dashboard.html'
 })
 export class Dashboard implements OnInit {
+
   goal: any = null;
   loading = true;
   userName = localStorage.getItem('userName') || 'User';
@@ -207,8 +206,11 @@ export class Dashboard implements OnInit {
       next: (saved: any) => {
         alert('Contribution added!');
 
-        this.goal.contributions.push(saved);
-        this.goal.currentAmount = this.savings.sumContributions(this.goal.contributions);
+        this.goal.contributions = [...this.goal.contributions, saved];
+
+        this.goal.currentAmount = this.savings.sumContributions(
+          this.goal.contributions
+        );
 
         this.goal = { ...this.goal };
 
@@ -225,7 +227,10 @@ export class Dashboard implements OnInit {
         this.goal.contributions = this.goal.contributions.filter(
           (c: any) => c._id !== id
         );
-        this.goal.currentAmount = this.savings.sumContributions(this.goal.contributions);
+
+        this.goal.currentAmount = this.savings.sumContributions(
+          this.goal.contributions
+        );
 
         this.goal = { ...this.goal };
 
