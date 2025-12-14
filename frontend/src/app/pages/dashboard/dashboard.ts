@@ -89,8 +89,15 @@ export class Dashboard implements OnInit {
     );
   }
 
+  /* ---------- Navigation ---------- */
+
   goToCreateGoal() {
     this.router.navigate(['/goal/step1']);
+  }
+
+  onEditGoal() {
+    this.goalWizardService.preloadGoalForEditing(this.goal);
+    this.router.navigate(['/goal/step1'], { queryParams: { edit: true } });
   }
 
   onDeleteGoal() {
@@ -102,10 +109,7 @@ export class Dashboard implements OnInit {
     });
   }
 
-  onEditGoal() {
-    this.goalWizardService.preloadGoalForEditing(this.goal);
-    this.router.navigate(['/goal/step1'], { queryParams: { edit: true } });
-  }
+  /* ---------- Milestones ---------- */
 
   loadMilestones() {
     this.milestoneService.getMilestonesByGoal(this.goal._id)
@@ -116,6 +120,7 @@ export class Dashboard implements OnInit {
       });
   }
 
+  // ✅ AUTO MILESTONES FIXED (subscribe added)
   ensureDefaultMilestones() {
     const defaults = this.savings.getDefaultMilestones();
     const existing = this.milestones.map(m => m.percentage);
@@ -130,7 +135,8 @@ export class Dashboard implements OnInit {
           achieved: false
         };
 
-        this.milestoneService.createMilestone(payload);
+        this.milestoneService.createMilestone(payload)
+          .subscribe(() => this.loadMilestones());
       }
     });
   }
@@ -151,14 +157,14 @@ export class Dashboard implements OnInit {
   }
 
   onDeleteMilestone(id: string) {
-    if (!confirm("Are you sure you want to delete this milestone?")) return;
+    if (!confirm('Are you sure you want to delete this milestone?')) return;
 
     this.milestoneService.deleteMilestone(id).subscribe({
       next: () => {
         this.milestones = this.milestones.filter(m => m._id !== id);
         this.achievedMilestones = this.milestones.filter(m => m.achieved);
       },
-      error: (err) => console.error("Error deleting milestone:", err)
+      error: err => console.error('Error deleting milestone:', err)
     });
   }
 
@@ -173,7 +179,6 @@ export class Dashboard implements OnInit {
 
   checkMilestones(showPopups = false) {
     const progress = this.progress;
-
     const evaluated = this.savings.evaluateMilestones(progress, this.milestones);
 
     evaluated.forEach((m, index) => {
@@ -207,13 +212,11 @@ export class Dashboard implements OnInit {
         alert('Contribution added!');
 
         this.goal.contributions = [...this.goal.contributions, saved];
-
         this.goal.currentAmount = this.savings.sumContributions(
           this.goal.contributions
         );
 
         this.goal = { ...this.goal };
-
         this.checkMilestones(true);
       }
     });
@@ -233,7 +236,6 @@ export class Dashboard implements OnInit {
         );
 
         this.goal = { ...this.goal };
-
         this.resetMilestones();
         this.checkMilestones(false);
       }
