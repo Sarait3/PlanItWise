@@ -6,29 +6,24 @@ require('dotenv').config(); // Loads .env file contents into process.env
 
 const app = express();
 
-// Added by Monofy for routes to goals, savingplans and milestones
 const goalsRoute = require("./routes/api/goals");
 const savingPlansRoute = require("./routes/api/savingPlans");
 const milestoneRoute = require("./routes/api/milestones");
 const contributionRoute = require("./routes/api/contributions"); 
 
 
-// 1. Connect Database
-// Call function from /config/db.js
+// Connect Database
 connectDB();
 
-// 2. Middleware Setup
-// Enable CORS for all routes, allows Angular app requests
 app.use(cors()); 
-// Initialize middleware
 app.use(express.json({ extended: false })); 
 
-// 3. Test Route
-// GET route to confirm API
-app.get('/', (req, res) => res.send('PlanIt Wise API is running!'));
+// Test Route
+// GET route, confirm API
+app.get('/', (req, res) => res.send('PlanIt Wise API is alive!'));
 
-// 4. Define API routes
-// Connect our route files (uncommented)
+// Define API routes
+// Connect our route files
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 // Added  by Monofy for goal, savingplan and milestone
@@ -40,9 +35,9 @@ app.use("/api/milestones", milestoneRoute);
 app.use("/api/contributions", contributionRoute);
 
 
-// 5. Start Server
+// Start Server
 // Get port from environment variables or use 5000 as default
 const PORT = process.env.PORT || 5000;
 
-// Listen and log message to console
+// Listen/log message to console
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
