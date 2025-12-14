@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ContributionService {
 
-  private baseUrl = 'http://localhost:4000/api/contributions';
+  private baseUrl = '${environment.apiUrl}/contributions';
 
   constructor(private http: HttpClient) {}
 

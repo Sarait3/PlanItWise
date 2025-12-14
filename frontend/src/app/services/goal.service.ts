@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class GoalService {
-    private apiUrl = 'http://localhost:4000/api/goals';
+    private apiUrl = '${environment.apiUrl}/goals';
 
     constructor(private http: HttpClient) {}
 

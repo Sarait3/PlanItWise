@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MilestonesService {
 
-  private baseUrl = 'http://localhost:4000/api/milestones';
+  private baseUrl = '${environment.apiUrl}/milestones';
 
   constructor(private http: HttpClient) {}
 
