@@ -1,64 +1,84 @@
-# PlanItWise – Savings Goal Planner (MVP)
+# PlanItWise - Savings Goal Planner (MVP)
 
-PlanItWise is a personal finance web application designed to help users plan and track savings goals.  
-This MVP allows users to create one goal, add contributions, monitor progress over time, and visualize savings growth through an interactive dashboard.
+PlanItWise is a personal finance web application designed to help users plan and track savings goals.
+This MVP allows users to create a savings goal, add contributions, monitor progress over time, and visualize savings growth through an interactive dashboard.
 
-This project was developed using Angular 20 (standalone components), Node.js 22, and MongoDB, following modern front-end architecture and clean component organization.
+The project was developed using Angular 20 (standalone components), Node.js, and MongoDB, following modern frontend and backend practices.
 
+---
+
+## Live Application (Deployed)
+
+The application is fully deployed and accessible online.
+
+**Frontend (Vercel):**  
+https://plan-it-wise.vercel.app
+
+**Backend (Render):**  
+https://planitwise-backend.onrender.com
+
+Users can access the app directly through the browser without any local installation.
+
+---
 
 ## Features (MVP)
 
 ### User Authentication
-- Register and log in using a secure backend API  
-- Authentication state stored in browser storage  
-- Route protection for the dashboard  
+- User registration and login using a secure backend API
+- JWT-based authentication
+- Authentication state stored in browser storage
+- Route protection for authenticated pages (Dashboard)
 
-### Single Savings Goal Management
-- Create one goal (title, target amount, deadline)  
-- View summary information (total saved, progress %, monthly required amount)  
-- Delete goal if needed  
+### Savings Goal Management
+- Create a savings goal with title, target amount, and deadline
+- View goal summary including total saved, progress percentage, and monthly required amount
+- Edit existing goal details directly from the dashboard
+- Delete a goal if needed
 
 ### Interactive Dashboard
-- Savings Chart: Line chart showing cumulative growth  
-- Goal Summary Card: Displays progress and key metrics  
-- Contribution Panel: Add contributions and view history  
-- Milestones Panel: Auto-generated (25%, 50%, 75%) and custom milestones  
-- Milestone popup when milestones are reached  
-- Fully responsive layout  
-
-### Milestone System
-- Automatically generate default milestones  
-- Add custom milestones  
-- Track achieved milestones  
-- Visual indicators for completed milestones  
-- Stored in MongoDB  
+- Savings progress chart showing contribution history
+- Goal summary card with progress and key metrics
+- Contribution panel for adding and reviewing contributions
+- Contribution summary panel displaying:
+  - Total saved amount
+  - Average contribution
+  - Number of active months
+  - Status feedback (ahead, on track, or behind)
+- Fully responsive layout for desktop use
 
 ### Contribution Tracking
-- Add contributions with amount, date, and optional note  
-- Delete contributions  
-- History modal with full list of entries  
-- Instant UI refresh through Angular change detection  
+- Add contributions with amount and date
+- Delete contributions
+- Automatic recalculation of totals and progress
+- Instant UI updates using Angular change detection
 
+### Milestone System
+- Automatic milestones at 25%, 50%, and 75%
+- Support for custom milestones
+- Visual indicators for completed milestones
+- Milestones stored in MongoDB
+
+---
 
 ## Technology Stack
 
 ### Frontend
-- Angular 20.3 (standalone components)  
-- TypeScript 5.9  
-- RxJS 7.8  
-- Chart.js  
-- Responsive HTML/CSS  
+- Angular 20 (standalone components)
+- TypeScript
+- RxJS
+- Chart.js
+- HTML and CSS
 
 ### Backend
-- Node.js 22  
-- Express.js REST API  
-- JWT-based authentication  
-- MongoDB + Mongoose  
+- Node.js
+- Express.js REST API
+- JWT authentication
+- MongoDB with Mongoose
 
-### Development Tools
-- Angular CLI 20.3  
-- npm 10.9  
-- Git + GitHub  
+### Deployment
+- Frontend hosted on Vercel
+- Backend hosted on Render
+- CI/CD enabled via GitHub main branch
 
 
 ## Project Structure (Frontend)
@@ -71,7 +91,7 @@ src/app/
   interceptors/
   pages/
     dashboard/
-      chart/
+      charts/ 
       contributions/
       goal/
       milestones/
@@ -108,7 +128,7 @@ backend/
 The backend is built using Node.js, Express.js, JWT authentication, and MongoDB (Mongoose).  
 Routes are organized by feature, and data models follow a clean schema-based structure.
 
-## Setup & Installation
+## Setup & Installation (Local development)
 
 ### 1. Clone the repository
 git clone https://github.com/Sarait3/PlanItWise
@@ -129,17 +149,25 @@ npm start
 Backend available at:  
 http://localhost:4000
 
+## Running the Deployed Application
+
+The application is also available as a live web application and does not require any local setup.
+
+The frontend is deployed on Vercel and can be accessed directly through a browser.
+The backend API is deployed on Render and is consumed by the frontend using an environment-based API URL configuration.
+
+This setup allows the same codebase to work in both local development and production environments without changes to the source code.
 
 ## Limitations (MVP)
-- Only one savings goal is supported  
-- Goal details cannot be edited after creation  
-- Basic authentication (no OAuth integration)   
 
+- Only one savings goal is supported
+- Basic authentication only (no OAuth or third-party login)
+- The application is not fully optimized for mobile screen sizes
 
 ## Future Enhancements
-- Support multiple goals per user  
-- Editing and updating goals
-- Smart Tips: personalized suggestions, such as increasing contributions if progress is falling behind, or offer brief educational insights
-- Goal Notes: simple notes section for each goal where users can record reminders or personal comments  
-- Real-World Data Integration: Connect with external APIs to fetch live information, such as currency exchange rates for travel-related goals or market data for investment tracking.  
 
+- Support multiple savings goals per user
+- Smart Tips to guide users when they fall behind their savings plan
+- Goal Notes to allow users to store personal reminders
+- Integration with real-world data such as exchange rates or financial APIs
+- Mobile Optimization: improve responsiveness and layout for smaller screens to ensure a smooth user experience on mobile devices
