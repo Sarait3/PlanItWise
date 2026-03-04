@@ -1,0 +1,109 @@
+<div class="dashboard-container">
+
+    <!-- Toast (Contribution added) -->
+  <div *ngIf="toastMsg" class="toast" role="status" aria-live="polite">
+    <div class="toast-inner">
+      <span class="emoji">✅</span>
+      <p>{{ toastMsg }}</p>
+    </div>
+  </div>
+
+  <!-- Congratulations Popup -->
+  <div *ngIf="milestonePopup" class="milestone-popup">
+    <div class="milestone-popup-inner">
+      <span class="emoji">🎉🥳</span>
+      <p>{{ milestonePopup }}</p>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">Loading your dashboard...</div>
+
+  <!-- Empty state -->
+  <div *ngIf="!loading && !goal" class="empty-state">
+    <h2>Welcome back, {{ userName }}</h2>
+    <p>You don’t have a savings goal yet.</p>
+    <button class="btn" (click)="goToCreateGoal()">+ Create Your Goal</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div *ngIf="!loading && goal">
+
+    <div class="top-row">
+
+      <!-- Progress Chart -->
+      <div class="top-left">
+        <app-dashboard-chart
+          [goal]="goal"
+          [contributions]="goal.contributions">
+        </app-dashboard-chart>
+      </div>
+
+      <!-- Contribution Summary -->
+      <div class="top-right">
+        <app-dashboard-contribution-summary
+          [contributions]="goal.contributions"
+          [targetAmount]="goal.targetAmount"
+          [currentAmount]="goal.currentAmount"
+          [monthlyRequired]="monthlyRequired">
+        </app-dashboard-contribution-summary>
+      </div>
+
+    </div>
+
+    <div class="bottom-grid">
+
+      <!-- GOAL SUMMARY -->
+      <app-dashboard-goal
+        [goal]="goal"
+        [progress]="progress"
+        [monthlyRequired]="monthlyRequired"
+        [achievedMilestones]="achievedMilestones"
+        (deleteGoalClicked)="onDeleteGoal()"
+        (editGoalClicked)="onEditGoal()">
+      </app-dashboard-goal>
+
+      <!-- CONTRIBUTIONS -->
+      <app-dashboard-contributions
+        (addContributionClicked)="onAddContribution($event)"
+        (historyClicked)="toggleHistoryPanel()">
+      </app-dashboard-contributions>
+
+      <!-- MILESTONES -->
+      <app-dashboard-milestones
+        [goal]="goal"
+        [milestones]="milestones"
+        (addMilestoneClicked)="onAddMilestone($event)"
+        (deleteMilestoneClicked)="onDeleteMilestone($event)">
+      </app-dashboard-milestones>
+
+    </div>
+
+    <!-- CONTRIBUTION HISTORY MODAL -->
+    <div *ngIf="historyOpen" class="history-overlay" (click)="toggleHistoryPanel()">
+      <div class="history-modal" (click)="$event.stopPropagation()">
+
+        <div class="history-header">
+          <h3>📄 Contribution History</h3>
+          <button class="close-btn" (click)="toggleHistoryPanel()">✕</button>
+        </div>
+
+        <div *ngIf="!goal.contributions?.length">
+          <p>No contributions yet.</p>
+        </div>
+
+        <div *ngFor="let c of goal.contributions" class="history-item">
+          <div class="info">
+            <strong>{{ c.amount | currency }}</strong>
+            <span>{{ c.date | date }}</span>
+          </div>
+          <button class="delete-contrib-btn" (click)="deleteContribution(c._id)">
+            🗑 Delete
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

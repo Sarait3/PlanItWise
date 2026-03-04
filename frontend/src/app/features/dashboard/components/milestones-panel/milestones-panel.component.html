@@ -1,0 +1,61 @@
+<div class="milestones-panel">
+  <h3 class="panel-title">Milestones</h3>
+
+  <!-- Add custom milestone -->
+  <div class="add-box">
+    <h4>Add New Milestone</h4>
+    <input
+      type="text"
+      placeholder="Milestone Name"
+      [(ngModel)]="newMilestoneName">
+
+    <input
+      type="number"
+      placeholder="%"
+      [(ngModel)]="newMilestonePercentage">
+
+    <button (click)="onAdd()">Add</button>
+  </div>
+
+  <!-- Milestone card list -->
+  <div class="milestone-list scroll-area">
+    <div
+      class="milestone-card"
+      *ngFor="let m of milestones"
+      [class.achieved]="m.achieved">
+
+      <div class="milestone-left">
+        <div class="milestone-icon" [class.done]="m.achieved">
+          <span *ngIf="m.achieved">✔</span>
+        </div>
+
+        <div class="milestone-text">
+          <div class="milestone-title-row">
+            <span class="milestone-title">{{ m.title }}</span>
+            <span class="milestone-percent">{{ m.percentage }}%</span>
+          </div>
+
+          <span class="milestone-amount">
+            {{ calcAmount(m.percentage) | currency }}
+          </span>
+
+          <span *ngIf="m.auto" class="milestone-tag">Auto</span>
+        </div>
+      </div>
+
+      <div class="milestone-actions">
+        <!-- Delete button (only custom milestones) -->
+        <button
+          class="delete-milestone-btn"
+          *ngIf="!m.auto"
+          (click)="onDelete(m._id)">
+          🗑
+        </button>
+
+        <!-- Badge -->
+        <div class="milestone-badge" [class.active]="m.achieved">🏅</div>
+      </div>
+
+    </div> 
+  </div> 
+</div>

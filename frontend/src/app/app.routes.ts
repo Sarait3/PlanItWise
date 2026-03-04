@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/login/login';
-import { HomeComponent } from './pages/home/home';
-import { Signup } from './pages/signup/signup';
-import { Dashboard } from './pages/dashboard/dashboard';
-import { Step1Component } from './pages/goal-wizard/step1/step1.component';
-import { Step2Component } from './pages/goal-wizard/step2/step2.component';
-import { Step3Component } from './pages/goal-wizard/step3/step3.component';
-import { Step4Component } from './pages/goal-wizard/step4/step4.component';
+import { Login } from './features/auth/pages/login/login';
+import { HomeComponent } from './features/home/pages/home/home';
+import { Signup } from './features/auth/pages/signup/signup';
+import { Dashboard } from './features/dashboard/pages/dashboard/dashboard';
+import { Step1Component } from './features/goal-wizard/pages/step1/step1.component';
+import { Step2Component } from './features/goal-wizard/pages/step2/step2.component';
+import { Step3Component } from './features/goal-wizard/pages/step3/step3.component';
+import { Step4Component } from './features/goal-wizard/pages/step4/step4.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },

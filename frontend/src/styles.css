@@ -824,6 +824,35 @@ a:hover {
   background: #b02a37;
 }
 
+.toast {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 100000;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.toast-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+}
+
+.toast .emoji {
+  font-size: 1rem;
+}
+
+.toast p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 .milestone-popup {
   padding: 22px 0;
   background: linear-gradient(90deg, #005eb8, #4b62d4);
