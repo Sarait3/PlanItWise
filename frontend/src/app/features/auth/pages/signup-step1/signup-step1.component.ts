@@ -8,10 +8,10 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-signup',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './signup.html',
+  templateUrl: './signup-step1.component.html',
   styles: ``,
 })
-export class Signup {
+export class SignupComponent {
   loading = false;
   error = '';
 
@@ -44,7 +44,7 @@ export class Signup {
     this.auth.signup(data).subscribe({
       next: (res) => {
         this.loading = false;
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/finances']);
       },
       error: (err) => {
         this.loading = false;

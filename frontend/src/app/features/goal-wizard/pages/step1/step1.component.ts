@@ -8,7 +8,7 @@ import { GoalWizardService } from '../../services/goal-wizard.service';
   selector: 'app-goal-step1',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './step1.html'
+  templateUrl: './step1.component.html'
 })
 export class Step1Component implements OnInit {
   category = '';

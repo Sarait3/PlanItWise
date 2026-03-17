@@ -11,7 +11,7 @@ import { GoalMathService } from '../../../../shared/utils/goal-math.service';
   selector: 'app-goal-step4',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './step4.html'
+  templateUrl: './step4.component.html'
 })
 export class Step4Component implements OnInit {
 

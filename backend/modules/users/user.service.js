@@ -58,11 +58,22 @@ exports.getMe = async (userId) => {
 
 
 // Update monthly finances (income/expenses)
-exports.updateFinances = async (userId, { monthlyIncome, monthlyExpenses }) => {
+exports.updateFinances = async (userId, { monthlyIncome, expenses }) => {
   const updatedUser = await User.findByIdAndUpdate(
     userId,
-    { monthlyIncome, monthlyExpenses },
-    { new: true }
+    {
+      monthlyIncome,
+      expenses: {
+        housing: expenses?.housing || 0,
+        groceries: expenses?.groceries || 0,
+        transportation: expenses?.transportation || 0,
+        utilities: expenses?.utilities || 0,
+        entertainment: expenses?.entertainment || 0,
+        healthcare: expenses?.healthcare || 0,
+        other: expenses?.other || 0
+      }
+    },
+    { new: true, runValidators: true }
   ).select('-password');
 
   if (!updatedUser) {

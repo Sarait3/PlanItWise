@@ -11,7 +11,7 @@ import { User } from '../../../users/models/user.model';
   selector: 'app-goal-step3',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './step3.html'
+  templateUrl: './step3.component.html'
 })
 export class Step3Component implements OnInit {
 

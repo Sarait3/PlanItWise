@@ -19,9 +19,15 @@ const UserSchema = new mongoose.Schema({
     type: Number, 
     default: 0 
   },
-  monthlyExpenses: { 
-    type: Number, 
-    default: 0 
+  
+  expenses: { 
+    housing: Number,
+    groceries: Number,
+    transportation: Number,
+    utilities: Number,
+    entertainment: Number,
+    healthcare: Number,
+    other: Number
   },
 
   date: { 

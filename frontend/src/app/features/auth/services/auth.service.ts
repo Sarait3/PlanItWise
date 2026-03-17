@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthResponse } from '../models/auth.model';
+import { User } from '../../users/models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -60,4 +61,10 @@ export class AuthService {
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
   }
+
+
+  //Update user's finances
+  updateFinances(data: Partial<User>): Observable<User> {
+  return this.http.put<User>(`${this.apiUrl}/users/finances`, data);
+}
 }

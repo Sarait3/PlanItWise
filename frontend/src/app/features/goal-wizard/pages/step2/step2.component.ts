@@ -9,7 +9,7 @@ import { GoalWizardService } from '../../services/goal-wizard.service';
   selector: 'app-goal-step2',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './step2.html'
+  templateUrl: './step2.component.html'
 })
 export class Step2Component implements OnInit {
 

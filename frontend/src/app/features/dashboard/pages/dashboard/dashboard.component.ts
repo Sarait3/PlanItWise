@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-
 import { GoalService } from '../../../goals/services/goal.service';
 import { MilestonesService } from '../../../milestones/services/milestones.service';
 import { ContributionService } from '../../../contributions/services/contribution.service';
 import { GoalWizardService } from '../../../goal-wizard/services/goal-wizard.service';
-
 import { GoalMathService } from '../../../../shared/utils/goal-math.service';
-
 import { DashboardChartComponent } from '../../components/charts/progress-chart.component';
 import { DashboardGoalComponent } from '../../components/goal-summary/goal-summary.component';
 import { DashboardContributionsComponent } from '../../components/add-contribution/add-contributions.component';
@@ -27,9 +24,9 @@ import { ContributionSummaryComponent } from '../../components/charts/contributi
     DashboardMilestonesComponent,
     ContributionSummaryComponent
   ],
-  templateUrl: './dashboard.html'
+  templateUrl: './dashboard.component.html'
 })
-export class Dashboard implements OnInit {
+export class DashboardComponent implements OnInit {
   goal: any = null;
   savingsPlan: any = null;
 

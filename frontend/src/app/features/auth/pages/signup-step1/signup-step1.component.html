@@ -6,7 +6,7 @@
 
   <div class="auth-card">
     <h2>Sign Up</h2>
-    <p>Enter your details to create your PlanItWise account</p>
+    <p>Enter your account details</p>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -47,12 +47,15 @@
       </div>
 
       <button class="auth-primary-btn" type="submit" [disabled]="form.invalid || loading">
-        {{ loading ? 'Creating account…' : 'Sign Up' }}
+        {{ loading ? 'Creating account…' : 'Continue' }}
       </button>
 
-      <div *ngIf="error" class="auth-error">
+      @if(error) {
+        <div class="auth-error">
         {{ error }}
       </div>
+      }
+      
     </form>
   </div>
 

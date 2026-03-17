@@ -1,0 +1,168 @@
+<div class="min-h-screen bg-gray-100 px-4 py-10">
+  <div class="mx-auto w-full max-w-2xl">
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        Tell us about your finances
+      </h1>
+      <p class="mt-2 text-sm text-gray-600">
+        Add your monthly income and expenses to build your budget dashboard.
+      </p>
+    </div>
+
+    <div class="rounded-2xl bg-white p-6 shadow-lg sm:p-8">
+      <h2 class="text-xl font-semibold text-gray-900">
+        Set up your monthly finances
+      </h2>
+      <p class="mt-1 text-sm text-gray-600">
+        You can always update this later from your profile.
+      </p>
+
+      <form class="mt-6 space-y-8" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <fieldset class="rounded-xl border border-gray-200 p-5">
+          <legend class="px-2 text-lg font-semibold text-gray-800">
+            Income
+          </legend>
+
+          <div class="mt-4">
+            <label class="mb-2 block text-sm font-medium text-gray-700">
+              Monthly Income ($)
+            </label>
+            <div>
+              <input
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                type="number"
+                formControlName="monthlyIncome"
+                placeholder="5000"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset
+          class="rounded-xl border border-gray-200 p-5"
+          formGroupName="expenses"
+        >
+          <legend class="px-2 text-lg font-semibold text-gray-800">
+            Expenses
+          </legend>
+
+          <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700">
+                Housing ($)
+              </label>
+              <div>
+                <input
+                  class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  type="number"
+                  formControlName="housing"
+                  placeholder="1500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700">
+                Groceries ($)
+              </label>
+              <div>
+                <input
+                  class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  type="number"
+                  formControlName="groceries"
+                  placeholder="400"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700">
+                Transportation ($)
+              </label>
+              <div>
+                <input
+                  class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  type="number"
+                  formControlName="transportation"
+                  placeholder="200"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700">
+                Utilities ($)
+              </label>
+              <div>
+                <input
+                  class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  type="number"
+                  formControlName="utilities"
+                  placeholder="250"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700">
+                Entertainment ($)
+              </label>
+              <div>
+                <input
+                  class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  type="number"
+                  formControlName="entertainment"
+                  placeholder="100"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700">
+                Healthcare ($)
+              </label>
+              <div>
+                <input
+                  class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  type="number"
+                  formControlName="healthcare"
+                  placeholder="75"
+                />
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="mb-2 block text-sm font-medium text-gray-700">
+                Other ($)
+              </label>
+              <div>
+                <input
+                  class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  type="number"
+                  formControlName="other"
+                  placeholder="50"
+                />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="pt-2">
+          <button
+            class="mt-1 w-full cursor-pointer rounded-full bg-[#005eb8] px-4 py-2.5 text-[0.98rem] font-semibold text-white transition hover:bg-[#004a93] disabled:cursor-default disabled:opacity-60"
+            type="submit"
+            [disabled]="form.invalid || loading"
+          >
+            {{ loading ? 'Updating finances…' : 'Save Finances' }}
+          </button>
+        </div>
+
+        @if(error) {
+          <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {{ error }}
+          </div>
+        }
+      </form>
+    </div>
+  </div>
+</div>
